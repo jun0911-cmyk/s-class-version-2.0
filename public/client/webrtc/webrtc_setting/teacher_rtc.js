@@ -1,14 +1,14 @@
 'use strict';
 
-import {sendMessage, onMessage, ScreenSendMessage, ScreenOnMessage} from "./signaling_client.js";
-import {host_leave_class} from "./exit_class.js";
-import {delete_call, host_delete_class} from "./delete_class.js";
-import {mute_audio, enabled_video} from "./devices_mute.js";
-import {displayMedia, displayConnectProtocol} from "./display_media.js";
-import {WaitingRoom} from "./host_waiting_room.js";
-import {select_devicesList} from "./select_devices.js";
-import {audio_devices_setting} from "./select_devices_setting.js";
-import {SDPOfferProtoCol, SDPStatusProtoCol} from "./p2p_protocol.js";
+import {sendMessage, onMessage, ScreenSendMessage, ScreenOnMessage} from "../webrtc_protocol/signaling_client.js";
+import {host_leave_class} from "../leave_class/exit_class.js";
+import {delete_call, host_delete_class} from "../leave_class/delete_class.js";
+import {mute_audio, enabled_video} from "../device_setting/devices_mute.js";
+import {displayMedia, displayConnectProtocol} from "../webrtc_protocol/display_media.js";
+import {WaitingRoom} from "../wait_room/host_waiting_room.js";
+import {select_devicesList} from "../device_setting/select_devices.js";
+import {audio_devices_setting} from "../device_setting/select_devices_setting.js";
+import {SDPOfferProtoCol, SDPStatusProtoCol} from "../webrtc_protocol/p2p_protocol.js";
 
 const socket = window.io();
 const localVideo = document.getElementById('localVideo');

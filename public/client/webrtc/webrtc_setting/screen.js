@@ -1,7 +1,7 @@
 'use strict';
 
-import {ScreenSendMessage, ScreenOnMessage} from "./signaling_client.js";
-import {RemoteDisplayConnectProtocol} from "./display_media.js";
+import {ScreenSendMessage, ScreenOnMessage} from "../webrtc_protocol/signaling_client.js";
+import {RemoteDisplayConnectProtocol} from "../webrtc_protocol/display_media.js";
 
 const video = document.getElementById('screenVideo'); 
 const DevicesRtcPeerConnection = new RTCPeerConnection({

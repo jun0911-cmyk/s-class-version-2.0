@@ -1,10 +1,10 @@
 'use strict';
 
-import {sendMessage, onMessage} from "./signaling_client.js";
-import {leave_call, client_leave_class} from "./exit_class.js";
-import {mute_audio, enabled_video} from "./devices_mute.js";
-import {client_close_class} from "./delete_class.js";
-import {SDPAnswerProtoCol} from "./p2p_protocol.js";
+import {sendMessage, onMessage} from "../webrtc_protocol/signaling_client.js";
+import {leave_call, client_leave_class} from "../leave_class/exit_class.js";
+import {mute_audio, enabled_video} from "../device_setting/devices_mute.js";
+import {client_close_class} from "../leave_class/delete_class.js";
+import {SDPAnswerProtoCol} from "../webrtc_protocol/p2p_protocol.js";
 
 const socket = window.io();
 const localVideo = document.getElementById('localVideo');
