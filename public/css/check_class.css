@@ -1,0 +1,253 @@
+@font-face {
+    font-family: 'Cafe24Ohsquare';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Cafe24Ohsquare.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "IBMPlexSansKR-Regular";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff")
+    format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ELAND_Choice_B';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Choice_B.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ELAND_Nice_M';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Nice_M.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Y_Spotlight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/Y_Spotlight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GmarketSansBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 미디어 쿼리 반응형 처리.
+/* 스마트폰 가로+세로 */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px){
+}
+
+ /* 스마트폰 가로 */
+@media only screen and (min-width : 321px) {
+    .s-class {
+        font-family: 'ELAND_Nice_M';
+        font-size: 25px;
+        margin-left: 30px;
+        margin-top: 10px;
+        display: inline-block;
+        margin-right: -650px;
+    }
+}
+
+ /* 스마트폰 세로 */
+@media only screen and (max-width : 320px) {
+}
+
+/* 데스크탑 브라우저 가로 */
+@media only screen and (min-width : 1224px) {
+    .s-class {
+        font-family: 'ELAND_Nice_M';
+        font-size: 25px;
+        margin-left: 30px;
+        margin-top: 10px;
+        display: inline-block;
+        margin-right: -1450px;
+    }
+}
+
+/* 큰 모니터 */
+@media only screen and (min-width : 1824px) {
+    .s-class {
+        font-family: 'ELAND_Nice_M';
+        font-size: 25px;
+        margin-left: 30px;
+        margin-top: 10px;
+        display: inline-block;
+        margin-right: -2200px;
+    }
+}
+
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:visited {
+    color: black; 
+    text-decoration: none;
+}
+
+a:hover {
+    color: violet;
+    text-decoration: none;
+}
+  
+div {
+    font-family: "IBMPlexSansKR-Regular";
+}
+
+.account {
+    font-family: 'ELAND_Choice_B';
+    font-size: 19px;
+    padding-right: 100px;
+}
+
+.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 125px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.main_content {
+    font-family: 'Cafe24Ohsquare';
+    font-size: 30px;   
+    margin-top: 50px;
+    margin-left: 100px;
+    color: black;
+}
+
+.sub_content {
+    font-family: 'Cafe24Ohsquare';
+    font-size: 30px !important;   
+    margin-top: 50px;
+    text-align: center;
+    margin-bottom: 50px;
+    color: black;
+}
+
+.btn_content {
+    margin-top: -54px;
+    margin-left: 830px;
+}
+
+.class_log {
+    font-family: 'Y_Spotlight';
+    font-size: 20px;
+    width: 100px;
+    height: 40px;
+    border: 1px solid black;
+    background-color: inherit;
+    border-radius: 10px;
+    text-align: center !important;
+    outline: none;
+    margin-right: 5px;
+}
+
+.class_log:hover {
+    animation-name: class_log;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.profile {
+    font-family: 'Y_Spotlight';
+    font-size: 20px;
+    width: 100px;
+    height: 40px;
+    border: 1px solid black;
+    background-color: inherit;
+    border-radius: 10px;
+    text-align: center !important;
+    outline: none;
+}
+
+.profile:hover {
+    animation-name: profile;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.navigator {
+    display: flex;
+    align-items: center;
+    border-bottom: 0.1px solid #d2d7dd;
+}
+  
+.contianer {
+    display: flex;
+}
+  
+.title {
+    float: right;
+    padding: 10px;
+}
+
+.title:hover {
+    border-bottom: 0.4px solid black;
+}
+
+.footer {
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 907px;
+}
+
+@keyframes class_log {
+    0% {
+    }
+    15% {
+        color: white;
+        background-color: orange;
+    }
+    100% {
+        color: white;
+        background-color: orange;
+    }
+}
+
+@keyframes profile {
+    0% {
+    }
+    15% {
+        color: white;
+        background-color: orange;
+    }
+    100% {
+        color: white;
+        background-color: orange;
+    }
+}

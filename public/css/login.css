@@ -1,0 +1,415 @@
+@font-face {
+    font-family: 'Cafe24Ohsquare';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Cafe24Ohsquare.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HangeulNuri-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/HangeulNuri-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "IBMPlexSansKR-Regular";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff")
+    format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ELAND_Choice_B';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Choice_B.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ELAND_Nice_M';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Nice_M.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Y_Spotlight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/Y_Spotlight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Y_Spotlight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/Y_Spotlight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Wemakeprice-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Wemakeprice-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+/* 미디어 쿼리 반응형 처리.
+/* 스마트폰 가로+세로 */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px){
+}
+
+ /* 스마트폰 가로 */
+@media only screen and (min-width : 321px) {
+    .s-class {
+        font-family: 'ELAND_Nice_M';
+        font-size: 25px;
+        margin-left: 30px;
+        margin-top: 10px;
+        display: inline-block;
+        margin-right: -650px;
+    }
+}
+
+ /* 스마트폰 세로 */
+@media only screen and (max-width : 320px) {
+}
+
+/* 데스크탑 브라우저 가로 */
+@media only screen and (min-width : 1224px) {
+    .s-class {
+        font-family: 'ELAND_Nice_M';
+        font-size: 25px;
+        margin-left: 30px;
+        margin-top: 10px;
+        display: inline-block;
+        margin-right: -1450px;
+    }
+}
+
+/* 큰 모니터 */
+@media only screen and (min-width : 1824px) {
+    .s-class {
+        font-family: 'ELAND_Nice_M';
+        font-size: 25px;
+        margin-left: 30px;
+        margin-top: 10px;
+        display: inline-block;
+        margin-right: -2200px;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:visited {
+    color: black; 
+    text-decoration: none;
+}
+
+a:hover {
+    color: violet;
+    text-decoration: none;
+}
+  
+div {
+    font-family: "IBMPlexSansKR-Regular";
+}
+
+.navigator {
+    display: flex;
+    align-items: center;
+    border-bottom: 0.1px solid #d2d7dd;
+}
+
+.title {
+    float: right;
+    padding: 24px;
+}
+
+.title:hover {
+    border-bottom: 0.4px solid black;
+}
+
+.login {
+    text-align: center;
+}
+
+.login_title {
+    font-family: 'Y_Spotlight';
+    font-size: 40px;
+    margin-top: 200px;
+    height: 100px;
+}
+
+.login_description {
+    font-size: 15px;
+    margin-top: -50px;
+    height: 30px;
+}
+
+.login_account {
+    color: black;
+    font-size: 15px;
+}
+
+.and_title {
+    font-size: 15px;
+    text-align: center;
+}
+
+input:focus {
+    outline: none;
+}
+
+.login_content {
+    display: block;
+}
+
+.id {
+    height: 50px; 
+    width: 400px; 
+    border: 1px solid gray; 
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.pwd {
+    height: 50px; 
+    width: 400px; 
+    border: 1px solid gray; 
+    border-radius: 5px;
+}
+
+.btn {
+    text-align: center !important;
+    font-family: 'Y_Spotlight';
+    font-size: 20px;
+    width: 400px;
+    height: 50px;
+    text-align: center;
+    background-color: rgba(0, 110, 255, 0.911);
+    color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    outline: none;
+}
+
+.btn:hover {
+    animation-name: btn;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.login_content:hover {
+    animation-name: input-clicked;
+}
+
+.find {
+    margin-top: 20px;
+    margin-left: 270px;
+    font-size: 14px;
+}
+
+.link_find {
+    color: grey;
+}
+
+.account_google {
+    border: 1px solid white;
+    border-radius: 3px;
+    width: 45px;
+    height: 40px;
+    background-color: white;
+    box-shadow: 1px 1px gray;
+    margin: 10px;
+}
+
+.account_facebook {
+    border: 1px solid #4267b2;
+    border-radius: 3px;
+    width: 45px;
+    height: 40px;
+    background-color: #4267b2;
+    box-shadow: 1px 1px gray;
+    margin: 10px;
+}
+
+.account_kakao {
+    border: 1px solid #fae301;
+    border-radius: 3px;
+    width: 45px;
+    height: 40px;
+    background-color: #fae301;
+    box-shadow: 1px 1px gray;
+    margin: 10px;
+}
+
+.account_naver {
+    border: 1px solid #00c300;
+    border-radius: 3px;
+    width: 45px;
+    height: 40px;
+    background-color: #00c300;
+    box-shadow: 1px 1px gray;
+    margin: 10px;
+}
+
+.account_github {
+    border: 1px solid white;
+    border-radius: 3px;
+    width: 45px;
+    height: 40px;
+    background-color: white;
+    box-shadow: 1px 1px gray;
+    margin: 10px;
+}
+
+.save_id {
+    color: black;
+    font-size: 14px;
+    margin-right: 320px;
+    margin-top: -20px !important;
+}
+
+.singup {
+    margin-top: -780px;
+    font-size: 14px;
+}
+
+.newbie {
+    font-family: 'Wemakeprice-Bold';
+    font-size: 18px !important;
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+.singup_btn {
+    font-family: 'Wemakeprice-Bold';
+    font-size: 17px;
+    width: 80px;
+    height: 35px;
+    border: 1px solid gray;
+    background-color: inherit;
+    border-radius: 30px;
+    outline: none;
+    margin: 10px;
+}
+
+.singup_btn:hover {
+    animation-name: singup_btn;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.service {
+    font-family: 'Wemakeprice-Bold';
+    font-size: 17px;
+    width: 80px;
+    height: 35px;
+    border: 1px solid gray;
+    background-color: inherit;
+    border-radius: 30px;
+    outline: none;
+}
+
+.service:hover {
+    animation-name: service;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.faq {
+    font-family: 'Wemakeprice-Bold';
+    margin: 10px;
+    font-size: 17px;
+    width: 110px;
+    height: 35px;
+    border: 1px solid gray;
+    background-color: inherit;
+    border-radius: 30px;
+    outline: none;
+}
+
+.faq:hover {
+    animation-name: faq;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.footer {
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 607px;
+}
+
+@keyframes input-clicked {
+    0% {
+        border-bottom: 1px solid #d3d3d3;
+    }
+    100% {
+        border-bottom: 1px solid #19ce60;
+    }
+}
+
+@keyframes btn {
+    0% {
+    }
+    30% {
+      color: blue;
+      background-color: #00ffdd;
+    }
+    100% {
+        color: blue;
+        background-color: #00ffdd;
+    }
+}
+
+@keyframes singup_btn {
+    0% {
+    }
+    15% {
+        color: white;
+        background-color: orange;
+    }
+    100% {
+        color: white;
+        background-color: orange;
+    }
+}
+
+@keyframes service {
+    0% {
+    }
+    15% {
+        color: white;
+        background-color: orange;
+    }
+    100% {
+        color: white;
+        background-color: orange;
+    }
+}
+
+@keyframes faq {
+    0% {
+    }
+    15% {
+        color: white;
+        background-color: orange;
+    }
+    100% {
+        color: white;
+        background-color: orange;
+    }
+}

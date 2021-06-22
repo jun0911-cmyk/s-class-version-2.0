@@ -1,0 +1,27 @@
+{
+    "google": {
+        "clientID": "267603653994-0jem5e3ohtmnqd8ehk0368btfc7ve3p9.apps.googleusercontent.com",
+        "clientSecret": "gIYCD5rBwl80Vr-Xss3c9JRs",
+        "callback": "http://127.0.0.1:8000/auth/google/callback"
+    },
+    "facebook": {
+        "clientID": "480281603283675",
+        "clientSecret": "988b78cdc473fb7c6ae21278f62a7b59",
+        "callback": "http://localhost:8000/auth/facebook/callback"
+    },
+    "kakao": {
+        "clientID": "8e14b9852a217222b45134c183a62bef",
+        "clientSecret": "rQmMOVz8Mhbhb4b9AXb3DB7QhapMcQE2",
+        "callback": "http://127.0.0.1:8000/auth/kakao/callback"
+    },
+    "naver": {
+        "clientID": "hTh2Q8LSMkaM3S_EDh5s",
+        "clientSecret": "ZUKehvHuJH",
+        "callback": "http://127.0.0.1:8000/auth/naver/callback"
+    },
+    "github": {
+        "clientID": "f475847c34e6ea4fb38f",
+        "clientSecret": "fdc0334ecea5d473b39fe14ff89d94cecfc4a220",
+        "callback": "http://127.0.0.1:8000/auth/github/callback"
+    }
+}

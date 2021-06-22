@@ -1,0 +1,593 @@
+@font-face {
+    font-family: 'Cafe24Ohsquare';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Cafe24Ohsquare.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HangeulNuri-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/HangeulNuri-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "IBMPlexSansKR-Regular";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff")
+    format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ELAND_Choice_B';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Choice_B.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ELAND_Nice_M';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Nice_M.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Y_Spotlight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/Y_Spotlight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Wemakeprice-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Wemakeprice-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 미디어 쿼리 반응형 처리.
+/* 스마트폰 가로+세로 */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px){
+}
+
+ /* 스마트폰 가로 */
+@media only screen and (min-width : 321px) {
+}
+
+ /* 스마트폰 세로 */
+@media only screen and (max-width : 320px) {
+}
+
+/* 데스크탑 브라우저 가로 */
+@media only screen and (min-width : 1224px) {
+    .live_context {
+        font-family: 'Cafe24Ohsquare';
+        margin-top: -17.8%;
+        left: 38.7%;
+        color: #0d1117;
+        position: absolute;
+        z-index: 10;
+    }
+    
+    .live {
+        margin-left: 63.8%;
+        position: absolute;
+    }
+    
+    .live_vue {
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        margin-left: 61%;
+        margin-top: 3px;
+        background: rgba(255, 0, 0, 0.87);
+        border-radius: 50%;
+        -webkit-animation:blink 1.5s ease-in-out infinite alternate; -moz-animation:blink 1.5s ease-in-out infinite alternate; animation:blink 1.5s ease-in-out infinite alternate;
+        position: absolute;
+        z-index: 10;
+    }
+    
+    video {
+        background: #222;
+        object-fit : cover;
+        width: 350px;
+        position: relative;
+        margin-left: 75%;
+        height: 250px;
+    }
+
+    .remote_video_cont {
+        margin-left: -99%;
+        margin-top: 1.5%;
+        width: 250px;
+        height: 200px;
+        position: absolute;
+        z-index: 30;
+    }
+
+    .screen_video_cont {
+        margin-left: -99%;
+        margin-top: 1.5%;
+        width: 250px;
+        height: 200px;
+        position: absolute;
+        z-index: 30;
+    }
+
+    .remoteselect {
+        margin-top: 530px;
+        margin-left: 1275px;
+        z-index: 40;
+    }
+
+    .remote_video {
+        border-radius: 5px;
+        background-color: #50BCDF;
+        color: white;
+        border: none;
+    }
+
+    .remote_screen_video {
+        border-radius: 5px;
+        background-color: #50BCDF;
+        color: white;
+        border: none;
+    }
+
+    .remote_screen_video:disabled {
+        border-radius: 5px;
+        background-color: #403f3d;
+        color: white;
+        border: none;
+    }
+
+    .remote_title {
+        position: absolute;
+        margin-left: 300px;
+        margin-top: 100px;
+        font-weight: 600;
+        color: #828282;
+    }
+
+    .user_session {
+        width: 350px;
+        height: 250px;
+        border: 3px solid black;
+        margin-left: 75%;
+        margin-top: -6px;
+    }
+
+    .session_search_text {
+        margin-left: 25px; 
+        position: absolute; 
+        font-size: 16px; 
+        margin-top: 13px;
+        width: 300px;
+        height: 30px;
+        border-radius: 10px;
+        border: 2px solid black;
+    }
+
+    .session_search {
+        border: 2px solid black;
+        background-color: #f7f2f2;
+        margin-top: 15px;
+        margin-left: 55px;
+        z-index: 40;
+        border:none;
+    }
+    
+    .user_session_title {
+        font-weight: 600;
+        font-size: 20px;
+        text-align: center;
+        color: gray;
+        margin-top: 50px;
+    }
+    
+    .user_chat {
+        width: 350px;
+        height: 443px;
+        border: 3px solid black;
+        margin-left: 75%;
+        margin-top: -6px;
+    }
+
+    .chat_title {
+        position: absolute;
+        font-weight: 600;
+        font-size: 20px;
+        color: black;
+        margin-left: 155px;
+        margin-top: 10px;
+    }
+
+    .chat_msg {
+        position: absolute;
+        margin-top: 330px;
+        margin-left: 20px;
+    }
+
+    .chat_content {
+        border-radius: 10px;
+        background-color: #f7f2f2;
+    }
+
+    .file_select {
+        position: absolute;
+        margin-top: 335px;
+        margin-left: 250px;
+    }
+
+    .file_content {
+        margin-left: 5px;
+    }
+
+    .service_chat {
+        border-style: none;
+        margin-left: 20px; 
+        margin-top: 370px;
+        background-color: #f7f2f2;
+        border: none;
+    }
+
+    select:focus {outline: none;}
+    input:focus {outline:none;}
+
+    .audio_video {
+        margin-top: -50px;
+        margin-left: 0.02%; /* 집 : 455 노트북 : 263 */
+        width: 1051px;
+        height: 50px;
+        background: rgb(31, 28, 28);
+    }
+    
+    .audio {
+        font-size: 30px;
+        color: #bbacac;
+        margin-left: 30px;
+    }
+    
+    .video {
+        font-size: 30px;
+        color: #bbacac;
+        margin-left: 20px;
+    }
+
+    .live_btn {
+        font-size: 17px;
+        font-weight: 600;
+        color: white;
+        background-color: rgba(255, 0, 0, 0.87);
+        border: 1px solid rgba(255, 0, 0, 0.87); 
+        width: 100px;
+        height: 30px;
+        border-radius: 20px;
+        margin-bottom: 20px;
+        margin-top: 3px;
+        margin-right: -1630px;
+    }
+}
+
+/* 큰 모니터 */
+@media only screen and (min-width : 1824px) {
+    .loading {
+        position: absolute;
+        border:0;
+        background-color: #16eee3ad;
+        padding:0px;
+        margin-top: 300px;
+        width: 30%;
+        height: 30%;
+        margin-left: 35%;
+        border-radius: 10px;
+        z-index: 99;
+    }
+
+    .text {
+        text-align: center;
+        font-size: xx-large;
+        font-weight: 600;
+        padding: 50px;
+    }
+        
+    .spin {
+        margin-left: 255px;
+        height: 70px;
+        width: 70px;
+        border-radius: 50%;
+        border:dashed 5px rgb(87, 80, 80);
+        animation-name: spin;
+        animation-duration: 1.2s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+        
+    @keyframes spin {
+        from   {  -webkit-transform: rotate(0deg); }
+        to   {  -webkit-transform: rotate(360deg); }
+    }
+
+    .live_context {
+        font-family: 'Cafe24Ohsquare';
+        margin-top: -15.5%;
+        left: 32%;
+        color: #0d1117;
+        position: absolute;
+        z-index: 50;
+    }
+    
+    .live {
+        margin-left: -68%;
+        position: absolute;
+    }
+    
+    .live_vue {
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        margin-left: -70.6%;
+        margin-top: 3.5px;
+        background: rgba(255, 0, 0, 0.87);
+        border-radius: 50%;
+        -webkit-animation:blink 1.5s ease-in-out infinite alternate; -moz-animation:blink 1.5s ease-in-out infinite alternate; animation:blink 1.5s ease-in-out infinite alternate;
+        position: absolute;
+        z-index: 50;
+    }
+    
+    video {
+        background: #222;
+        object-fit : cover;
+        width: 450px;
+        position: relative;
+        margin-left: 76.54%;
+        height: 300px;
+    }
+
+    .remote_video_cont {
+        margin-left: -100%;
+        margin-top: -0%;
+        width: 1470px;
+        height: 867px;
+        position: absolute;
+        z-index: 30;
+    }
+
+    .user_session {
+        width: 450px;
+        height: 200px;
+        border: 3px solid black;
+        margin-left: 76.54%;
+        margin-top: -6px;
+    }
+
+    .session_search_text {
+        margin-left: 85px; 
+        position: absolute; 
+        font-size: 16px; 
+        margin-top: 13px;
+        width: 300px;
+        height: 30px;
+        border-radius: 10px;
+        border: 2px solid black;
+    }
+
+    .session_search {
+        border: 2px solid black;
+        margin-top: 15px;
+        margin-left: 115px;
+        background-color: #f7f2f2;
+        z-index: 40;
+        border:none;
+    }
+    
+    .user_session_title {
+        font-weight: 600;
+        font-size: 20px;
+        text-align: center;
+        color: gray;
+        margin-top: 50px;
+    }
+    
+    .user_chat {
+        width: 450px;
+        height: 443px;
+        border: 3px solid black;
+        margin-left: 76.54%;
+        margin-top: -6px;
+    }
+
+    .chat_title {
+        position: absolute;
+        font-weight: 600;
+        font-size: 20px;
+        color: black;
+        margin-left: 195px;
+        margin-top: 10px;
+    }
+
+    .chat_msg {
+        position: absolute;
+        margin-top: 330px;
+        margin-left: 20px;
+    }
+
+    .chat_content {
+        border-radius: 10px;
+        background-color: #f7f2f2;
+    }
+
+    .file_select {
+        position: absolute;
+        margin-top: 335px;
+        margin-left: 300px;
+    }
+
+    .file_content {
+        margin-left: 5px;
+    }
+
+    .service_chat {
+        border-style: none;
+        margin-left: 20px; 
+        margin-top: 370px;
+        background-color: #f7f2f2;
+        border: none;
+    }
+
+    select:focus {outline: none;}
+    input:focus {outline:none;}
+
+    .audio_video {
+        margin-top: -70px;
+        margin-left: 0.02%; /* 집 : 455 노트북 : 263 */
+        width: 1470px;
+        height: 70px;
+        background: rgb(31, 28, 28);
+    }
+    
+    .audio {
+        font-size: 30px;
+        color: #bbacac;
+        margin-left: 30px;
+    }
+
+    .audio_setting {
+        position: absolute;
+        font-size: 12px;
+        color: #bbacac;
+        margin-top: 10px;
+    }
+    
+    .video {
+        font-size: 30px;
+        color: #bbacac;
+        margin-left: 50px;
+    }
+
+    .video_setting {
+        position: absolute;
+        font-size: 12px;
+        color: #bbacac;
+        margin-top: 10px;
+        margin-left: 5px;
+    }
+
+    .live_btn {
+        font-size: 17px;
+        font-weight: 600;
+        color: white;
+        background-color: rgba(255, 0, 0, 0.87);
+        border: 1px solid rgba(255, 0, 0, 0.87); 
+        width: 100px;
+        height: 30px;
+        border-radius: 20px;
+        margin-bottom: 10px;
+        margin-top: 13px;
+        margin-right: -2440px;
+    }
+}
+
+body {
+    overflow: hidden;
+    background-color: #f7f2f2;
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:visited {
+    color: black; 
+    text-decoration: none;
+}
+
+a:hover {
+    color: violet;
+    text-decoration: none;
+}
+  
+div {
+    font-family: "IBMPlexSansKR-Regular";
+}
+
+.dropdown {
+    display: inline-block;
+    /* text not dragging */
+    -ms-user-select: none; 
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.dropdown-content {
+    margin-left: 500px;
+    font-weight: 500;
+    display: block;
+    position: absolute;
+    background-color: #403f3d;
+    color: white;
+    text-align: left;
+    min-width: 355px;
+    border-radius: 7px;
+    padding-left: 16px;
+    display: block;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 2px;
+    text-decoration: none;
+    display: block;
+    color: red;
+    text-align: left;
+}
+
+.dropdown .dropdown-content {
+    display: block;
+}
+
+.emot {
+    font-weight: 600;
+    color: red;
+}
+
+@-webkit-keyframes blink { 
+    0% {
+        opacity:0;
+    } 
+    30% {
+        opacity:1;
+    } 
+    100% {
+        opacity:1;
+    } 
+} @-moz-keyframes blink {
+    0% {
+        opacity:0;
+    } 
+    30% {
+        opacity:1;
+    } 
+    100% {
+        opacity:1;
+    } 
+} @keyframes blink { 
+    0% {
+        opacity:0;
+    } 
+    30% {
+        opacity:1;
+    } 
+    100% {
+        opacity:1;
+    } 
+}
