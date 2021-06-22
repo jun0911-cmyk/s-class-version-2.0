@@ -4,7 +4,7 @@ import {sendMessage, onMessage} from "../webrtc_protocol/signaling_client.js";
 import {leave_call, client_leave_class} from "../leave_class/exit_class.js";
 import {mute_audio, enabled_video} from "../device_setting/devices_mute.js";
 import {client_close_class} from "../leave_class/delete_class.js";
-import {SDPAnswerProtoCol} from "../webrtc_protocol/p2p_protocol.js";
+// import {SDPAnswerProtoCol} from "../webrtc_protocol/p2p_protocol.js";
 
 const socket = window.io();
 const localVideo = document.getElementById('localVideo');
@@ -70,22 +70,6 @@ $(function() {
                         window.open(`/class/live/room/classroom/screen/10329912&testing&testing`);
                     }
                 });
-            });
-
-            if (document.readyState == 'complete') {
-                setTimeout(function() {
-                    socket.emit('reloading', roomId, user);
-                }, 500);
-                setTimeout(function() {
-                    SDPAnswerProtoCol(navigator, rtcPeerConnection, remoteVideo, socket, roomId);
-                    sendMessage('client_reload', 1);
-                }, 1000);
-            }
-
-            onMessage('start_connect', function(data) {
-                if (data) {
-                    SDPAnswerProtoCol(navigator, rtcPeerConnection, remoteVideo, socket, roomId);
-                }
             });
 
             leave_call(socket, roomId);

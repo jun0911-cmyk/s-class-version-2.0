@@ -8,7 +8,7 @@ import {displayMedia, displayConnectProtocol} from "../webrtc_protocol/display_m
 import {WaitingRoom} from "../wait_room/host_waiting_room.js";
 import {select_devicesList} from "../device_setting/select_devices.js";
 import {audio_devices_setting} from "../device_setting/select_devices_setting.js";
-import {SDPOfferProtoCol, SDPStatusProtoCol} from "../webrtc_protocol/p2p_protocol.js";
+//import {SDPOfferProtoCol, SDPStatusProtoCol} from "../webrtc_protocol/p2p_protocol.js";
 
 const socket = window.io();
 const localVideo = document.getElementById('localVideo');
@@ -63,7 +63,7 @@ $(function() {
                 enabled_video(localVideo, localStream);
             }
 
-            /*navigator.mediaDevices.getUserMedia({
+            navigator.mediaDevices.getUserMedia({
                 audio: true, 
                 video: true
             }).then(stream => {
@@ -83,7 +83,7 @@ $(function() {
                     `내 화면을 킬 수 없습니다. 다른 장치를 선택해주세요. ${err.name}`,
                     'error'
                 )
-            });*/
+            });
 
             // mute audio or video
             audio_devices_setting(document.getElementById('audio_settings'));
@@ -117,25 +117,6 @@ $(function() {
                     $('#localScreenVideo').show();
                     $('#localVideo').hide();
                 });
-            });
-
-            if (document.readyState == 'complete') {
-                setTimeout(function() {
-                    $('#loading').hide();
-                    SDPOfferProtoCol(navigator, remoteVideo, localVideo, socket, roomId, localStream);
-                    sendMessage('start_connect', 1);
-                }, 3000);
-            }
-
-            onMessage('client_reload', function(data) {
-                if (data) {
-                    $('#loading').hide();
-                    socket.emit('check_status', roomId);
-                }
-            });
-
-            socket.on('check_status', function(status, client) {
-                SDPStatusProtoCol(navigator, remoteVideo, localVideo, socket, roomId, localStream, status, client);
             });
 
             host_leave_class(socket, remoteVideo);
