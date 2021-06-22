@@ -72,7 +72,7 @@ $(function() {
                 });
             });
 
-            leave_call(socket, roomId);
+            leave_call(socket, roomId, user);
             client_leave_class(socket);
             client_close_class(socket);
         },

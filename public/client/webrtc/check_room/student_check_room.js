@@ -32,6 +32,7 @@ $(function() {
             });
 
             socket.on('offline_class', function(roomId) {
+                console.log(roomId);
                 check.message = `${roomId}번 강의실은 현재 열려있지 않는 강의실 입니다.`;
             });
 
@@ -80,9 +81,9 @@ $(function() {
                 }, 1500);
             });
 
-            socket.on('waiting_room', function(roomId, user, result) {
+            socket.on('waiting_room', function(roomId, email, result) {
                 if (result == 'success') {
-                    socket.emit('join_class', roomId, user);
+                    socket.emit('join_class', roomId, email, user);
                 } else if (result == 'fail') {
                     check.message = `${roomId}번 호스트가 귀하를 승인하지 않았습니다. 연결해제중...`;
                     setTimeout(function() {

@@ -88,91 +88,6 @@ module.exports = function(app, io) {
             socket.broadcast.emit('screen_message', message);
         });
 
-        // CLIENT PAGE 새로고침 확인
-        socket.on('reloading', function(roomId, user) {
-            for (var i = 0; i < client.length; i++) {
-                if (client[i].connect_room == roomId && client[i].client_name == user.email) {
-                    if (client[i].connected == true) {
-                        client[i].reloadUser = true;
-                        io.to(roomId).emit('client_reload', roomId, user);
-                    }
-                }
-            }
-        });
-
-        // Offer 받고 보내기와 CLIENT SDP 설정 및 SDP 관리
-        socket.on('offerCreate', function(offer, roomId) {
-            for (var i = 0; i < client.length; i++) {
-                if (client[i].connect_room == roomId) {
-                    checkoffer = true;
-                    if (client[i].client_sdp == 'null') {
-                        client[i].client_sdp = offer;
-                        io.to(roomId).emit('offerCreate', offer);
-                        console.log('Setting SDP');
-                        console.log(client[i]);
-                    } else if (client[i].client_sdp != 'null') {
-                        io.to(roomId).emit('offerCreate', offer);
-                        console.log('defult setting SDP');
-                        console.log(client[i]);
-                    }
-                }
-            }
-        });
-
-        // Answer 받고 보내기와 Answer 관리
-        socket.on('answerCreate', function(answer, roomId) {
-            for (var i = 0; i < client.length; i++) {
-                if (client[i].connect_room == roomId && checkoffer == true) {
-                    checkanswer = true;
-                    io.to(roomId).emit('answerCreate', answer);
-                }
-            }
-        });
-
-        // 호스트 ICE 후보 수집자
-        socket.on('iceandidate', function(ice, roomId) {
-            for (var i = 0; i < client.length; i++) {
-                if (client[i].connect_room == roomId && checkanswer == true) {
-                    io.to(roomId).emit('iceandidate', ice);
-                }
-            }
-        });
-
-
-        // 클라이언트 ICE 후보 수집자
-        socket.on('clienticeandidate', function(ice, roomId) {
-            for (var i = 0; i < client.length; i++) {
-                if (client[i].connect_room == roomId) {
-                    io.to(roomId).emit('clienticeandidate', ice);
-                }
-            }
-        });
-
-        // CLIENT 관리와 상태 확인
-        socket.on('check_status', function(roomId) {
-            for (var i = 0; i < client.length; i++) {
-                if (client[i].connect_room == roomId) {
-                    if (client[i].reconnected == true && client[i].reloadUser == true) {
-                        status = '11' // 11
-                    }
-    
-                    if (client[i].reconnected == false && client[i].reloadUser == true) {
-                        status = '10'; // 10
-                    }
-    
-                    if (client[i].reconnected == true && client[i].reloadUser == false) {
-                        status = '01'; // 01
-                    }
-    
-                    if (client[i].reconnected == false && client[i].reloadUser == false) {
-                        status = '00'; // 00
-                    }
-
-                    socket.emit('check_status', status, client[i]);
-                }
-            }
-        });
-
         // CREATE ROOM START 권한 확인
         socket.on('check_create_class', function(roomId, user) {
             if (user.user_group != 'admin' || user.user_group != 'teacher') {
@@ -226,23 +141,28 @@ module.exports = function(app, io) {
                     class_id: roomId
                 }
             }).then(function(room) {
-                for (var i = 0; i < host.length; i++) {
-                    if (room == null) {
-                        socket.emit('not_class', roomId);
-                    } else {
-                        if (room.class_status == 0) {
-                            socket.emit('offline_class', roomId);
-                        }
-    
-                        if (host[i].id == roomId) {
-                            if (room.limit_join <= clients) {
-                                socket.emit('full_class', roomId);
-                            } else {
+                if (room == null) {
+                    socket.emit('not_class', roomId);
+                } else {
+                    console.log(clients);
+                    if (room.class_status == 0) {
+                        socket.emit('offline_class', roomId);
+                        return;
+                    }
+
+                    if (room.limit_join <= clients) {
+                        socket.emit('full_class', roomId);
+                        return;
+                    }
+
+                    if (host.length != 0) {
+                        for (var i = 0; i < host.length; i++) {
+                            if (host[i].id == roomId) {
                                 socket.emit('ready_join', roomId, user);
                             }
                         }
                     }
-                } 
+                }
             });
         });
         
@@ -277,7 +197,7 @@ module.exports = function(app, io) {
         });
 
         // JOIN CLASS
-        socket.on('join_class', function(roomId, user) {
+        socket.on('join_class', function(roomId, email, user) {
             for (var i = 0; i < host.length; i++) {
                 if (host[i].id == roomId) {
                     models.class.findOne({
@@ -285,12 +205,7 @@ module.exports = function(app, io) {
                             class_id: host[i].id
                         }
                     }).then(function(room) {
-                        if (room.class_status == 1) {
-                            for (var i = 0; i < client.length; i++) {
-                                if (client[i].connect_room == roomId && client[i].client_name == user.email) {
-                                    client[i].reconnected = true;
-                                }
-                            }
+                        if (room.class_status == 1 && email == user.email) {
                             socket.emit('joined', roomId, clients);
                         }
                     });
@@ -320,11 +235,12 @@ module.exports = function(app, io) {
         socket.on('joined_class', function(roomId, user) {
             Network_Manager(roomId, user);
             for (var i = 0; i < client.length; i++) {
-                if (client[i].connect_room == roomId) {
+                if (client[i].connect_room == roomId && client[i].client_name == user.email) {
                     socket.join(client[i].connect_room);
                     socket.emit('joined_class', client[i]);
                     io.to(roomId).emit('join', client[i]);
                     io.to(roomId).emit('join_list', client[i]);
+                    clients = io.sockets.adapter.rooms.get(roomId).size;
                 }
             }
         });
@@ -332,7 +248,9 @@ module.exports = function(app, io) {
         socket.on('disconnect', function() {
         });
 
-        // CLOSE CLASS 강의실 종료
+        // 강의실 종료와 나가기는 통신 피어 구분자와 아이디로 파악하여 종료해야 하고 일일히 트랙을 멈춰야 한다, 아직까지 1:1에서만 최적화 되어있기에 3명이상 접속하면 작동이 되지 않는다. 따라서 피어구분자와 1:N이 최적화 되는 즉시 다시 머지 할것이다.
+
+        /*// CLOSE CLASS 강의실 종료
         socket.on('close_class', function(roomId) {
             io.to(roomId).emit('close_class', roomId);
 
@@ -352,6 +270,7 @@ module.exports = function(app, io) {
 
             for (var j = 0; j < client.length; j++) {
                 if (client[j].connect_room == roomId) {
+                    console.log(client[j]);
                     socket.leave(client[j].connect_room);
                     client.splice(client.indexOf(client[j]), 1);
                 }
@@ -359,17 +278,17 @@ module.exports = function(app, io) {
         });
 
         // LEAVE CLASS 강의실 나가기
-        socket.on('leave_class', function(roomId) {
-            io.to(roomId).emit('leave_class', roomId);
-
+        socket.on('leave_class', function(roomId, user) {
             for (var i = 0; i < client.length; i++) {
-                if (client[i].connect_room == roomId) {
+                if (client[i].connect_room == roomId && client[i].client_name == user.email) {
+                    console.log(client[i].client_name);
                     socket.leave(client[i].connect_room);
                     client[i].connected = false;
                     client[i].reconnected = false;
                     clients = io.sockets.adapter.rooms.get(roomId).size;
+                    io.to(roomId).emit('leave_class', roomId);
                 }
             }
-        });
+        });*/
     });
 }

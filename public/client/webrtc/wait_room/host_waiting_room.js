@@ -11,7 +11,7 @@ export function WaitingRoom(socket) {
             cancelButtonText: '취소'
         }).then((result) => {
             if (result.isConfirmed) {
-                socket.emit('acknowledgment_class', roomId, user);
+                socket.emit('acknowledgment_class', roomId, user.email);
             } else {
                 socket.emit('unlicensed_class', roomId, user);
             }

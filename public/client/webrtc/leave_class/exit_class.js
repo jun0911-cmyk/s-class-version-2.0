@@ -1,10 +1,9 @@
 export function host_leave_class(socket, remoteVideo) {
     socket.on('leave_class', function(roomId) {
-        remoteVideo.srcObject = null;
     });
 }
 
-export function leave_call(socket, roomId) {
+export function leave_call(socket, roomId, user) {
     document.getElementById('exit_class').addEventListener('click', e => {
         Swal.fire({
             title: `정말로 ${roomId}번 강의시를 나가시겠습니까?`,
@@ -23,9 +22,9 @@ export function leave_call(socket, roomId) {
                     'success'
                 ).then((leave) => {
                     if (leave.isConfirmed) {
-                        socket.emit('leave_class', roomId);
+                        socket.emit('leave_class', roomId, user);
                     } else {
-                        socket.emit('leave_class', roomId);
+                        socket.emit('leave_class', roomId, user);
                     }
                 });
             }
