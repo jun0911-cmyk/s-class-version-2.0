@@ -304,16 +304,16 @@ module.exports = function(app, io) {
                 where: {
                     class_id: roomId
                 }
-            }).then(function(room) {
-                Network_Manager(roomId, user, room);
+            }).then(async function(room) {
+                await Network_Manager(roomId, user, room);
+                for (var i = 0; i < host.length; i++) {
+                    if (host[i].id == roomId) {
+                        socket.join(host[i].id);
+                        socket.emit('created_class', host[i]);
+                        clients = io.sockets.adapter.rooms.get(roomId).size;
+                    }   
+                }
             });
-            for (var i = 0; i < host.length; i++) {
-                if (host[i].id == roomId) {
-                    socket.join(host[i].id);
-                    socket.emit('created_class', host[i]);
-                    clients = io.sockets.adapter.rooms.get(roomId).size;
-                }   
-            }
         });
 
         // SUCCESS JOINED
