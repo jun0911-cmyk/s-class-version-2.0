@@ -236,7 +236,6 @@ module.exports = function(app, io) {
     
                         if (host[i].id == roomId) {
                             if (room.limit_join <= clients) {
-                                console.log(clients);
                                 socket.emit('full_class', roomId);
                             } else {
                                 socket.emit('ready_join', roomId, user);

@@ -8,11 +8,13 @@ import {displayMedia, displayConnectProtocol} from "../webrtc_protocol/display_m
 import {WaitingRoom} from "../wait_room/host_waiting_room.js";
 import {select_devicesList} from "../device_setting/select_devices.js";
 import {audio_devices_setting} from "../device_setting/select_devices_setting.js";
+import {attendanceCheck} from "../attendance/attendance_check.js";
 //import {SDPOfferProtoCol, SDPStatusProtoCol} from "../webrtc_protocol/p2p_protocol.js";
 
 const socket = window.io();
 const localVideo = document.getElementById('localVideo');
 const remoteVideo = document.getElementById('remoteVideo');
+const attendance = document.getElementById('user_checks');
 const localScreenVideo = document.getElementById('localScreenVideo');
 const my_video = document.getElementById('my_video');
 const my_screen_video = document.getElementById('my_screen_video');
@@ -54,6 +56,7 @@ $(function() {
             // MediaStream connect
             muteAudio.addEventListener('click', audios);
             muteVideo.addEventListener('click', videos);
+            attendance.addEventListener('click', attendanceCheck);
         
             function audios() {
                 mute_audio(localVideo, localStream);
