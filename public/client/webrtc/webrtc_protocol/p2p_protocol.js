@@ -1,3 +1,4 @@
+/* 클라이언트 강의실 새로고침 확인하여 종료 시킴
 async function removeClient(rtcPeerConnection, localVideo, localStream, remoteVideo, roomId) {
     if (rtcPeerConnection.iceConnectionState == 'closed') {
         var track = await localStream.getVideoTracks()[0];
@@ -18,4 +19,4 @@ async function removeClient(rtcPeerConnection, localVideo, localStream, remoteVi
             }
         });
     }
-}
+}*/
