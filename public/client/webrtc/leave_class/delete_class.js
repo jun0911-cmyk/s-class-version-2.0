@@ -13,7 +13,7 @@ export function delete_call(socket, roomId) {
             if (result.isConfirmed) {
                 Swal.fire(
                     '승인코드 : 205',
-                    '강의실이 종료되었습니다!',
+                    '강의실이 종료되었습니다.',
                     'success'
                 ).then((leave) => {
                     if (leave.isConfirmed) {

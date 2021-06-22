@@ -1,30 +1,32 @@
 const express = require('express');
 const path = require('path');
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const models = require('../database_db/models');
-const crypto = require('crypto');
+const KakaoStrategy = require('passport-kakao').Strategy;
+const session = require('express-session');
+const models = require('../../database_db/models');
 const config = require('./OAuth_config.json');
+const crypto = require('crypto');
+const url = require('url');
 const app = express();
 
 try {
     models.sequelize.authenticate();
-    console.log('GOOGLE Login : Login_db Connection has been established successfully.');
+    console.log('KAKAO Login : Login_db Connection has been established successfully.');
 } catch (error) {
     console.error('Unable to connect to the database :', error);
 }
 
 module.exports = function(app, passport) {
-    passport.use(new GoogleStrategy({
-        clientID: config.google.clientID,
-        clientSecret: config.google.clientSecret,
-        callbackURL: config.google.callback
+    passport.use(new KakaoStrategy({
+        clientID: config.kakao.clientID,
+        clientSecret: config.kakao.clientSecret,
+        callbackURL: config.kakao.callback
     }, 
     function (accessToken, refreshToken, profile, done) {
         models.User.findOne({
             where: {
                 email: profile.emails[0].value,
-                platform: 'google'
+                platform: 'kakao'
             }
         }).then(function(user) {
             if(!user) {
@@ -34,7 +36,7 @@ module.exports = function(app, passport) {
                     password: accessToken,
                     user_group: 'user',
                     user_id: 'testing',
-                    platform: 'google',
+                    platform: 'kakao',
                     create_account: date
                 }).then(function(user) {
                     return done(null, user);
@@ -47,9 +49,9 @@ module.exports = function(app, passport) {
         .catch(err => done(err));
     }));
 
-    app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+    app.get('/auth/kakao', passport.authenticate('kakao', { scope: ['profile'] }));
 
-    app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/user/login' }),
+    app.get('/auth/kakao/callback', passport.authenticate('kakao', { failureRedirect: '/user/login' }),
     function(req, res) {
         res.redirect('/');
     });

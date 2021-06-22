@@ -1,32 +1,29 @@
 const express = require('express');
 const path = require('path');
 const passport = require('passport');
-const KakaoStrategy = require('passport-kakao').Strategy;
-const session = require('express-session');
-const models = require('../database_db/models');
+const FacebookStrategy = require('passport-facebook').Strategy;
+const models = require('../../database_db/models');
 const config = require('./OAuth_config.json');
-const crypto = require('crypto');
-const url = require('url');
 const app = express();
 
 try {
     models.sequelize.authenticate();
-    console.log('KAKAO Login : Login_db Connection has been established successfully.');
+    console.log('NAVER Login : Login_db Connection has been established successfully.');
 } catch (error) {
     console.error('Unable to connect to the database :', error);
 }
 
 module.exports = function(app, passport) {
-    passport.use(new KakaoStrategy({
-        clientID: config.kakao.clientID,
-        clientSecret: config.kakao.clientSecret,
-        callbackURL: config.kakao.callback
+    passport.use(new FacebookStrategy({
+        clientID: config.facebook.clientID,
+        clientSecret: config.facebook.clientSecret,
+        callbackURL: config.facebook.callback
     }, 
     function (accessToken, refreshToken, profile, done) {
         models.User.findOne({
             where: {
                 email: profile.emails[0].value,
-                platform: 'kakao'
+                platform: 'facebook'
             }
         }).then(function(user) {
             if(!user) {
@@ -36,7 +33,7 @@ module.exports = function(app, passport) {
                     password: accessToken,
                     user_group: 'user',
                     user_id: 'testing',
-                    platform: 'kakao',
+                    platform: 'facebook',
                     create_account: date
                 }).then(function(user) {
                     return done(null, user);
@@ -49,9 +46,9 @@ module.exports = function(app, passport) {
         .catch(err => done(err));
     }));
 
-    app.get('/auth/kakao', passport.authenticate('kakao', { scope: ['profile'] }));
+    app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['profile'] }));
 
-    app.get('/auth/kakao/callback', passport.authenticate('kakao', { failureRedirect: '/user/login' }),
+    app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/user/login' }),
     function(req, res) {
         res.redirect('/');
     });

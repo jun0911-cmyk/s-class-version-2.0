@@ -16,6 +16,7 @@ $(function() {
             var check;
 
             $('#loading').hide();
+            $('#check_pwd').hide();
 
             socket.emit('check_class', roomId, user);
 
@@ -54,6 +55,7 @@ $(function() {
                 setTimeout(function() {
                     check.message = `${roomId}번 강의실의 회의 암호를 입력해주세요.`;
                     btn.remove();
+                    $('#check_pwd').show();
                     pwd.innerHTML = `<input type="password" id="pwd_class" class="pwd_class" placeholder="여기에 암호를 입력해주세요.." size="50"/>`;
                     check_pwd.innerHTML = `<button type="button" id="check_btn" class="btn btn-primary btn-lg" style="font-weight: 600;">확인</button>`;
                 }, 1500);

@@ -43,10 +43,10 @@ app.use(passport.session());
 // OAuth
 require('./OAuth/OAuth_singup')(app, crypto);
 require('./OAuth/OAuth_s-class')(app, passport);
-require('./OAuth/OAuth_google')(app, passport);
-require('./OAuth/OAuth_kakao')(app, passport);
-require('./OAuth/OAuth_naver')(app, passport);
-require('./OAuth/OAuth_github')(app, passport);
+require('./OAuth/SocialOAuth/OAuth_google')(app, passport);
+require('./OAuth/SocialOAuth/OAuth_kakao')(app, passport);
+require('./OAuth/SocialOAuth/OAuth_naver')(app, passport);
+require('./OAuth/SocialOAuth/OAuth_github')(app, passport);
 
 // Class
 require('./class/class_server')(app);
