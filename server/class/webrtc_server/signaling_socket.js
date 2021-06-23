@@ -97,6 +97,23 @@ module.exports = function(app, io) {
             });
         });
 
+        socket.on('AddInvite', function(classname, user) {
+            if (user.select_teacher == classname) {
+                socket.emit('userOverlap', classname);
+            } else if (user.select_teacher != classname) {
+                models.student.update({
+                    select_teacher: classname
+                }, {
+                    where: {
+                        email: user.email
+                    }
+                }).then(function(result) {
+                    socket.emit('successInvite', result);
+                })
+                .catch(err => console.log(err));
+            }
+        });
+
         // CREATE ROOM START 권한 확인
         socket.on('check_create_class', function(roomId, user) {
             if (user.user_group != 'admin' || user.user_group != 'teacher') {

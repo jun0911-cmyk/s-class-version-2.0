@@ -17,7 +17,7 @@ $(function() {
             document.getElementById('invite').addEventListener('click', startInvite);
 
             function startInvite() {
-                invite_code(room_socket);
+                invite_code(room_socket, data);
             }
 
             Vue.component('account-component', {
