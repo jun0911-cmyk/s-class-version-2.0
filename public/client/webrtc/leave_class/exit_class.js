@@ -6,7 +6,7 @@ export function host_leave_class(socket, remoteVideo) {
 export function leave_call(socket, roomId, user) {
     document.getElementById('exit_class').addEventListener('click', e => {
         Swal.fire({
-            title: `정말로 ${roomId}번 강의시를 나가시겠습니까?`,
+            title: `정말로 ${roomId}번 강의실을 나가시겠습니까?`,
             text: "강의실을 나가시려면 나가기를 클릭해주세요.",
             icon: 'warning',
             showCancelButton: true,
@@ -23,8 +23,10 @@ export function leave_call(socket, roomId, user) {
                 ).then((leave) => {
                     if (leave.isConfirmed) {
                         socket.emit('leave_class', roomId, user);
+                        window.close();
                     } else {
                         socket.emit('leave_class', roomId, user);
+                        window.close();
                     }
                 });
             }
@@ -32,8 +34,7 @@ export function leave_call(socket, roomId, user) {
     });
 }
 
-export function client_leave_class(socket) {
+export function client_leave_class(socket, user) {
     socket.on('leave_class', function(roomId) {
-        window.close();
     });
 }

@@ -85,11 +85,15 @@ $(function() {
                 if (result == 'success') {
                     socket.emit('join_class', roomId, email, user);
                 } else if (result == 'fail') {
-                    check.message = `${roomId}번 호스트가 귀하를 승인하지 않았습니다. 연결해제중...`;
-                    setTimeout(function() {
-                        location.href = `/student/class`;
-                    }, 3000);
+                    socket.emit('join_fail', roomId, email, user);
                 }
+            });
+
+            socket.on('joinFailed', function(roomId) {
+                check.message = `${roomId}번 호스트가 귀하를 승인하지 않았습니다. 연결해제중...`;
+                setTimeout(function() {
+                    location.href = `/student/class`;
+                }, 3000);
             });
 
             socket.on('check_fail_pwd', function(roomId) {

@@ -33,6 +33,7 @@ module.exports = function(app, io) {
                 "reloadUser": false,
             }
             client.push(client_data);
+            console.log(client);
         }
 
         function host_object(roomId, room, user) {
@@ -47,6 +48,7 @@ module.exports = function(app, io) {
 
         function Network_Manager(roomId, user, room) {
             if (!room) {
+                console.log(client.length);
                 if (client.length == 0) {
                     client_object(roomId, user);
                     return;
@@ -54,7 +56,7 @@ module.exports = function(app, io) {
                 
                 if (client.length != 0) {
                     for (var j = 0; j < client.length; j++) {
-                        if (client[j].connect_room != roomId && client[j].client_name != user.email) {
+                        if (client[j].connect_room == roomId && client[j].client_name != user.email) {
                             client_object(roomId, user);
                         }
     
@@ -190,7 +192,7 @@ module.exports = function(app, io) {
         socket.on('acknowledgment_class', function(roomId, user) {
             io.emit('waiting_room', roomId, user, 'success');
         });
-        
+
         // JOIN ROOM HOST 응답 (비허가)
         socket.on('unlicensed_class', function(roomId, user) {
             io.emit('waiting_room', roomId, user, 'fail');
@@ -210,6 +212,12 @@ module.exports = function(app, io) {
                         }
                     });
                 }
+            }
+        });
+
+        socket.on('join_fail', function(roomId, email, user) {
+            if (email == user.email) {
+                socket.emit('joinFailed', roomId);
             }
         });
 
@@ -250,7 +258,7 @@ module.exports = function(app, io) {
 
         // 강의실 종료와 나가기는 통신 피어 구분자와 아이디로 파악하여 종료해야 하고 일일히 트랙을 멈춰야 한다, 아직까지 1:1에서만 최적화 되어있기에 3명이상 접속하면 작동이 되지 않는다. 따라서 피어구분자와 1:N이 최적화 되는 즉시 다시 머지 할것이다.
 
-        /*// CLOSE CLASS 강의실 종료
+        // CLOSE CLASS 강의실 종료
         socket.on('close_class', function(roomId) {
             io.to(roomId).emit('close_class', roomId);
 
@@ -269,6 +277,7 @@ module.exports = function(app, io) {
             }
 
             for (var j = 0; j < client.length; j++) {
+                console.log(client[j]);
                 if (client[j].connect_room == roomId) {
                     console.log(client[j]);
                     socket.leave(client[j].connect_room);
@@ -281,14 +290,12 @@ module.exports = function(app, io) {
         socket.on('leave_class', function(roomId, user) {
             for (var i = 0; i < client.length; i++) {
                 if (client[i].connect_room == roomId && client[i].client_name == user.email) {
-                    console.log(client[i].client_name);
-                    socket.leave(client[i].connect_room);
-                    client[i].connected = false;
-                    client[i].reconnected = false;
+                    socket.leave(roomId);
+                    client.splice(client.indexOf(client[i]), 1);
                     clients = io.sockets.adapter.rooms.get(roomId).size;
                     io.to(roomId).emit('leave_class', roomId);
                 }
             }
-        });*/
+        });
     });
 }

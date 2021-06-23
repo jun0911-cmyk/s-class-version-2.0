@@ -73,7 +73,7 @@ $(function() {
             });
 
             leave_call(socket, roomId, user);
-            client_leave_class(socket);
+            client_leave_class(socket, user);
             client_close_class(socket);
         },
         error: function(request,status,error) { 

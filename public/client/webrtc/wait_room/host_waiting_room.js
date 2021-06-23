@@ -13,7 +13,7 @@ export function WaitingRoom(socket) {
             if (result.isConfirmed) {
                 socket.emit('acknowledgment_class', roomId, user.email);
             } else {
-                socket.emit('unlicensed_class', roomId, user);
+                socket.emit('unlicensed_class', roomId, user.email);
             }
         });
     });

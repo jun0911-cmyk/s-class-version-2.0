@@ -122,6 +122,10 @@ $(function() {
                 });
             });
 
+            socket.on('join', function(client) {
+                console.log(client);
+            });
+
             host_leave_class(socket, remoteVideo);
             delete_call(socket, roomId);
             host_delete_class(socket);
