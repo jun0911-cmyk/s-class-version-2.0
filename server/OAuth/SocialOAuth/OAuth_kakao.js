@@ -23,7 +23,7 @@ module.exports = function(app, passport) {
         callbackURL: config.kakao.callback
     }, 
     function (accessToken, refreshToken, profile, done) {
-        models.User.findOne({
+        models.student.findOne({
             where: {
                 email: profile.emails[0].value,
                 platform: 'kakao'
@@ -31,12 +31,13 @@ module.exports = function(app, passport) {
         }).then(function(user) {
             if(!user) {
                 var date = new Date();
-                models.User.create({
+                models.student.create({
                     email: profile.emails[0].value,
                     password: accessToken,
                     user_group: 'user',
                     user_id: 'testing',
                     platform: 'kakao',
+                    select_teacher: 'not teacher',
                     create_account: date
                 }).then(function(user) {
                     return done(null, user);

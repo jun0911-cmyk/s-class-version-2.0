@@ -63,19 +63,20 @@ module.exports = function(app, crypto) {
         else {
             var date = new Date();
             var hashpwd = crypto.createHash('sha512').update(pwd).digest('base64');
-            models.User.findOne({
+            models.student.findOne({
                 where: {
                     email: email,
                     platform: 's-class'
                 }
             }).then(function(user) {
                 if(!user) {
-                    models.User.create({
+                    models.student.create({
                         email: email,
                         password: hashpwd,
-                        user_group: 'user',
+                        user_group: 'student',
                         user_id: '10321100',
                         platform: 's-class',
+                        select_teacher: 'not teacher',
                         create_account: date
                     }).then(function(user) {
                         res.json({ result: 0 })

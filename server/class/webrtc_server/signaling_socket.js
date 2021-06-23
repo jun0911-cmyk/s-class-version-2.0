@@ -21,10 +21,7 @@ module.exports = function(app, io) {
                 "client_name": user.email,
                 "client_id": user.user_id,
                 "client_group": user.user_group,
-                "client_sdp": "null",
                 "connected": true,
-                "reconnected": false,
-                "reloadUser": false,
             }
             client.push(client_data);
         }
@@ -80,6 +77,24 @@ module.exports = function(app, io) {
 
         socket.on('screen_message', function(message) {
             socket.broadcast.emit('screen_message', message);
+        });
+
+        socket.on('checkInviteCode', function(InviteCode) {
+            models.class.findOne({
+                where: {
+                    inivte_code: InviteCode
+                }
+            }).then(function(result) {
+                if (result == null) {
+                    socket.emit('fail_code', InviteCode);
+                } else {
+                    if (result.inivte_code == InviteCode) {
+                        socket.emit('success_code', InviteCode, result);
+                    } else {
+                        socket.emit('fail_code', InviteCode);
+                    }
+                }
+            });
         });
 
         // CREATE ROOM START 권한 확인

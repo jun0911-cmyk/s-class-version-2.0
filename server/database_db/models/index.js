@@ -16,6 +16,8 @@ var sequelize = new Sequelize(
 db.sequelize = sequelize; 
 db.Sequelize = Sequelize; 
 db.User = require('./user')(sequelize, Sequelize);
+db.student = require('./student')(sequelize, Sequelize);
+db.teacher = require('./teacher')(sequelize, Sequelize);
 db.class = require('./class')(sequelize, Sequelize);
 
 module.exports = db;

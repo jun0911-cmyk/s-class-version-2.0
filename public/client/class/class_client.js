@@ -1,3 +1,5 @@
+import { invite_code } from "../invite/invite_code.js";
+
 const room_socket = window.io();
 
 $(function() {
@@ -11,6 +13,12 @@ $(function() {
             var data = result.data;
             var classroom = result.classroom;
             var count_number = result.rows_number;
+
+            document.getElementById('invite').addEventListener('click', startInvite);
+
+            function startInvite() {
+                invite_code(room_socket);
+            }
 
             Vue.component('account-component', {
                 template: `
