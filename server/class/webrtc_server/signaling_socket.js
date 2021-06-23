@@ -13,12 +13,6 @@ var host_data;
 var client = [];
 var client_data;
 
-var status;
-var stream;
-
-var checkoffer = false;
-var checkanswer = false;
-
 module.exports = function(app, io) {
     io.on('connection', function(socket) {
         function client_object(roomId, user) {
@@ -33,7 +27,6 @@ module.exports = function(app, io) {
                 "reloadUser": false,
             }
             client.push(client_data);
-            console.log(client);
         }
 
         function host_object(roomId, room, user) {
@@ -48,7 +41,6 @@ module.exports = function(app, io) {
 
         function Network_Manager(roomId, user, room) {
             if (!room) {
-                console.log(client.length);
                 if (client.length == 0) {
                     client_object(roomId, user);
                     return;
