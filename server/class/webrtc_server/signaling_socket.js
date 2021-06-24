@@ -160,7 +160,7 @@ module.exports = function(app, io) {
             });
         });
 
-        // 승인 요청 제거
+        // 승인 요청 제거 ( 내일 )
         socket.on('access_denied', function(inviteUser, Email, user) {
             models.student.update({
                 select_teacher: 'not teacher'
