@@ -31,7 +31,7 @@ export async function invite_code(socket, user) {
             cancelButtonText: '아니요'
         }).then((result) => {
             if (result.isConfirmed) {
-                socket.emit('AddInvite', Teacherresult.class_name, user);
+                socket.emit('AddInvite', Teacherresult.class_host, user);
             } else {
                 Swal.fire(
                     `요청 취소`,
@@ -45,7 +45,7 @@ export async function invite_code(socket, user) {
     socket.on('userOverlap', function(classname) {
         Swal.fire(
             `요청 취소`,
-            `${classname}으로 이미 요청을 보내셨습니다.`,
+            `${classname} 강사로 이미 요청을 보내셨습니다.`,
             'error'
         );
     });

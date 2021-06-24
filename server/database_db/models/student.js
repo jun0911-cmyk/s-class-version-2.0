@@ -26,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+        access_status: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
         select_teacher: {
             type: DataTypes.STRING,
             allowNull: false

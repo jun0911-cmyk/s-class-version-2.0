@@ -79,6 +79,7 @@ module.exports = function(app, io) {
             socket.broadcast.emit('screen_message', message);
         });
 
+        // 초대코드 체크
         socket.on('checkInviteCode', function(InviteCode) {
             models.class.findOne({
                 where: {
@@ -97,6 +98,7 @@ module.exports = function(app, io) {
             });
         });
 
+        // 학생 DB에 담당 교사 이름 추가
         socket.on('AddInvite', function(classname, user) {
             if (user.select_teacher == classname) {
                 socket.emit('userOverlap', classname);
@@ -112,6 +114,40 @@ module.exports = function(app, io) {
                 })
                 .catch(err => console.log(err));
             }
+        });
+
+        // 승인 요청 승인
+        socket.on('approve_access', function(inviteUser, Email, user) {
+            models.student.update({
+                access_status: 1
+            }, {
+                where: {
+                    email: Email
+                }
+            }).then(function(resultStudent) {
+                models.teacher.update({
+                    access_student: Email
+                }, {
+                    where: {
+                        email: user.email
+                    }
+                }).then(function(resultStudent) {
+                    socket.emit('approve_access', Email);
+                });
+            });
+        });
+
+        // 승인 요청 제거
+        socket.on('access_denied', function(inviteUser, Email, user) {
+            models.student.update({
+                select_teacher: 'not teacher'
+            }, {
+                where: {
+                    email: Email
+                }
+            }).then(function(result) {
+                socket.emit('access_denied', Email);
+            });
         });
 
         // CREATE ROOM START 권한 확인

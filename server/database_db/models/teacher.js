@@ -26,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+        access_student: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         create_account: {
             type: DataTypes.DATE,
             allowNull: false

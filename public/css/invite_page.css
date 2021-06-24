@@ -198,24 +198,6 @@ div {
     animation-fill-mode: forwards;
 }
 
-.invite {
-    font-family: 'Y_Spotlight';
-    font-size: 20px;
-    width: 100px;
-    height: 40px;
-    border: 1px solid black;
-    background-color: inherit;
-    border-radius: 10px;
-    text-align: center !important;
-    outline: none;
-}
-
-.invite:hover {
-    animation-name: invite;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-}
-
 .navigator {
     display: flex;
     align-items: center;
@@ -258,19 +240,6 @@ div {
 }
 
 @keyframes profile {
-    0% {
-    }
-    15% {
-        color: white;
-        background-color: orange;
-    }
-    100% {
-        color: white;
-        background-color: orange;
-    }
-}
-
-@keyframes invite {
     0% {
     }
     15% {

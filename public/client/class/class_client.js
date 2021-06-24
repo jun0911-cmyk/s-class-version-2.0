@@ -13,6 +13,7 @@ $(function() {
             var data = result.data;
             var classroom = result.classroom;
             var count_number = result.rows_number;
+            var status = result.status;
 
             document.getElementById('invite').addEventListener('click', startInvite);
 
@@ -74,7 +75,15 @@ $(function() {
                     }
                 },
                 created() {
-                    this.classroom_data = count_number.rows
+                    if (status == 'no') {
+                        Swal.fire(
+                            '강의실 없음',
+                            '현재 열린 강의실이나 등록되신 강의실이 없으십니다.',
+                            'error'
+                        )
+                    } else {
+                        this.classroom_data = count_number.rows
+                    }
                 }
             });
 

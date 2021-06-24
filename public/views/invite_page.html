@@ -14,7 +14,7 @@
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="./teacher_class.css">
+    <link rel="stylesheet" type="text/css" href="./invite_page.css">
     <link rel="stylesheet" type="text/css" href="./scrollbar.css">
     <link rel="shortcut icon" href="#">
     <title>S-클래스 - 화상 수업 플랫폼을 지금 S-클래스에서 바로 진행해보세요.</title>
@@ -45,9 +45,8 @@
             <main-component></main-component>
         </div>
         <div class="btn_content">
-            <button class="class_log" onclick = "location.href = '/student/check/class' ">강의 이력</button>
+            <button class="class_log" onclick = "location.href = '/teacher/class' ">내 강의실</button>
             <button class="profile" onclick = "location.href = '#' ">내 정보</button>
-            <button class="invite" id="invite" onclick = "location.href = '/teacher/invite/list' ">초대 내역</button>
         </div>
         <div class="sub_content" id="sub_content">
             <sub-component></sub-component>
@@ -56,57 +55,37 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="cols">강의실 이름</th>
-                        <th scope="cols">강의실 ID</th>
-                        <th scope="cols">강의실 비밀번호</th>
-                        <th scope="cols">강사 이름</th>
-                        <th scope="cols">교사 교과</th>
-                        <th scope="cols">설정된 학습진도</th>
-                        <th scope="cols">설정된 호스트</th>
-                        <th scope="cols">총 학생수</th>
-                        <th scope="cols">강의실 상태</th>
-                        <th scope="cols">강의실 생성일시</th>
-                        <th scope="cols">강의실 설정</th>
-                        <th scope="cols">강의실 시작</th>
+                        <th scope="cols">요청자 이름</th>
+                        <th scope="cols">요청자 아이디</th>
+                        <th scope="cols">요청 대상</th>
+                        <th scope="cols">요청 상태</th>
+                        <th scope="cols">요청자 가입일</th>
+                        <th scope="cols">요청 승인</th>
+                        <th scope="cols">요청 제거</th>
                     </tr>
                 </thead>
                 <tbody id="col">
-                    <tr v-for="(index, classroom) in classroom_data">
+                    <tr v-for="(index, user) in inviteData">
                         <td>
-                            <span>{{ index.class_name }}</span>
+                            <span>{{ index.email }}</span>
                         </td>
                         <td>
-                            <span>{{ index.class_id }}</span>
+                            <span>{{ index.user_id }}</span>
                         </td>
                         <td>
-                            <span>{{ index.class_pwd }}</span>
+                            <span>{{ index.select_teacher }}</span>
                         </td>
                         <td>
-                            <span>{{ index.teacher }}</span>
+                            <span>{{ index.access_status }}</span>
                         </td>
                         <td>
-                            <span>{{ index.subject }}</span>
+                            <span>{{ index.create_account }}</span>
                         </td>
                         <td>
-                            <a href="#">{{ index.class_information }}</a>
+                            <button class="btn btn-primary btn-sm" style="background-color: rgb(61, 231, 61); border: none;" id="approve_access">요청 승인</button>
                         </td>
                         <td>
-                            <span>{{ index.class_host }}</span>
-                        </td>
-                        <td>
-                            <span>{{ index.limit_join }}명</span>
-                        </td>
-                        <td>
-                            <span id="class_status" style="margin-left: 30px;">{{ index.class_status }}</span>
-                        </td>
-                        <td>
-                            <span style="margin-left: 7px;">{{ index.class_created }}</span>
-                        </td>
-                        <td>
-                            <button class="btn btn-primary btn-sm" onclick = "location.href = '#' ">강의실 설정</button>
-                        </td>
-                        <td>
-                            <button class="btn btn-primary btn-sm" id="room_btn">{{ index.class_name }} 시작하기</button>
+                            <button class="btn btn-primary btn-sm" style="background-color: red; border: none;" id="access_denied">요청 삭제</button>
                         </td>
                     </tr>
                 </tbody>
@@ -117,6 +96,6 @@
         <h6  style="color: white;">S-클래스 - 스쿨줌</h6>
         <small style="color: lightgray;">Copyright © S-클래스 2021</small>
     </footer>
-    <script src="./class/teacher_class_client.js" type="module"></script>
+    <script src="./invite/invite_list.js" type="module"></script>
 </body>
 </html>
