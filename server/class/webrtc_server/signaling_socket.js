@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
 const models = require('../../database_db/models');
+const { QueryTypes } = require('sequelize');
 const io = require('socket.io')(server);
 
 var clients;
@@ -103,16 +104,27 @@ module.exports = function(app, io) {
             if (user.select_teacher == classname) {
                 socket.emit('userOverlap', classname);
             } else if (user.select_teacher != classname) {
-                models.student.update({
-                    select_teacher: classname
-                }, {
-                    where: {
-                        email: user.email
-                    }
-                }).then(function(result) {
-                    socket.emit('successInvite', result);
-                })
-                .catch(err => console.log(err));
+                if (user.select_teacher == 'not teacher') {
+                    models.student.update({
+                        select_teacher: classname
+                    }, {
+                        where: {
+                            email: user.email
+                        }
+                    }).then(function(result) {
+                        socket.emit('successInvite', result)
+                    })
+                    .catch(err => console.log(err));
+                    return;
+                } 
+                
+                if (user.select_teacher != 'not teacher') {
+                    models.sequelize.query(`UPDATE student_dbs 
+                    SET select_teacher = CONCAT(select_teacher, ', ${classname}') WHERE email = '${user.email}'`, { type: QueryTypes.UPDATE }).then(function(result) {
+                        socket.emit('successInvite', result);
+                    })
+                    .catch(err => console.log(err));
+                }
             }
         });
 
@@ -125,15 +137,26 @@ module.exports = function(app, io) {
                     email: Email
                 }
             }).then(function(resultStudent) {
-                models.teacher.update({
-                    access_student: Email
-                }, {
-                    where: {
-                        email: user.email
-                    }
-                }).then(function(resultStudent) {
-                    socket.emit('approve_access', Email);
-                });
+                if (user.access_student == 'not student') {
+                    models.teacher.update({
+                        access_student: Email
+                    }, {
+                        where: {
+                            email: user.email
+                        }
+                    }).then(function(resultStudent) {
+                        socket.emit('approve_access', Email);
+                    })
+                    .catch(err => console.log(err));
+                    return;   
+                }
+
+                if (user.access_student != 'not student') {
+                    models.sequelize.query(`UPDATE teacher_dbs SET access_student = CONCAT(access_student, ', ${Email}') WHERE email = '${user.email}'`, { type: QueryTypes.UPDATE }).then(function(resultTeacher) {
+                        socket.emit('approve_access', Email);
+                    })
+                    .catch(err => console.log(err));
+                }
             });
         });
 
