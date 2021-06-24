@@ -35,6 +35,7 @@ module.exports = function(app, passport) {
                     user_group: 'user',
                     user_id: 'testing',
                     platform: 'github',
+                    access_status: 0,
                     select_teacher: 'not teacher',
                     create_account: date
                 }).then(function(user) {

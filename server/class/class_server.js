@@ -45,6 +45,7 @@ module.exports = function(app) {
                     }).then(function(classroom_data) {
                         models.class.findAndCountAll({
                             where: {
+                                class_host: result.email,
                                 class_status: '1'
                             }
                         })

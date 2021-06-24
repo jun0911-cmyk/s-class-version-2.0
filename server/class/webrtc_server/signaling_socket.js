@@ -150,6 +150,21 @@ module.exports = function(app, io) {
             });
         });
 
+        // 초대 요청 현황 확인
+        socket.on('inviteStatus', function(user) {
+            models.student.findOne({
+                where: {
+                    email: user.email
+                }
+            }).then(function(result) {
+                if (result.select_teacher == 'not teacher') {
+                    socket.emit('notInvite', result);
+                } else {
+                    socket.emit('inviteStatus', result);
+                }
+            });
+        });
+
         // CREATE ROOM START 권한 확인
         socket.on('check_create_class', function(roomId, user) {
             if (user.user_group != 'admin' || user.user_group != 'teacher') {

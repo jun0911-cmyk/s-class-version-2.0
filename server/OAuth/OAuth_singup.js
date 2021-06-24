@@ -76,6 +76,7 @@ module.exports = function(app, crypto) {
                         user_group: 'student',
                         user_id: '10321100',
                         platform: 's-class',
+                        access_status: 0,
                         select_teacher: 'not teacher',
                         create_account: date
                     }).then(function(user) {

@@ -19,16 +19,38 @@ module.exports = function(app) {
 
     app.post('/student/check/class', (req, res) => {
         if(req.isAuthenticated()) {
-            models.class.findAll().then(function(classroom_data) {
-                models.class.findAndCountAll()
-                .then(function(count_data) {
+            models.teacher.findOne({
+                where: {
+                    access_student: req.user.email
+                }
+            }).then(function(result) {
+                if (result == null) {
                     res.json({ 
-                        classroom: classroom_data, 
+                        status: 'no',
                         data: req.user,
-                        rows_number: count_data 
                     });
-                })
-                .catch(err => console.log(err));
+                } else {
+                    models.class.findAll({
+                        where: {
+                            class_host: result.email
+                        }
+                    }).then(function(classroom_data) {
+                        models.class.findAndCountAll({
+                            where: {
+                                class_host: result.email
+                            }
+                        })
+                        .then(function(count_data) {
+                            res.json({ 
+                                classroom: classroom_data, 
+                                data: req.user,
+                                rows_number: count_data 
+                            });
+                        })
+                        .catch(err => console.log(err));
+                    })
+                    .catch(err => console.log(err));
+                }
             })
             .catch(err => console.log(err));
         }

@@ -1,4 +1,5 @@
 import { invite_code } from "../invite/invite_code.js";
+import { inviteStatus } from "../invite/invite_status.js";
 
 const room_socket = window.io();
 
@@ -17,8 +18,14 @@ $(function() {
 
             document.getElementById('invite').addEventListener('click', startInvite);
 
+            document.getElementById('invite_status').addEventListener('click', statusInvite);
+
             function startInvite() {
                 invite_code(room_socket, data);
+            }
+
+            function statusInvite() {
+                inviteStatus(room_socket, data);
             }
 
             Vue.component('account-component', {
