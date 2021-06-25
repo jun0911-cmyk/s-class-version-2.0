@@ -13,8 +13,15 @@ $(function() {
         success: function(result) {
             var data = result.data;
             var classroom = result.classroom;
-            var count_number = result.rows_number;
-            var status = result.status;
+            var classList = [];
+
+            room_socket.emit('addclassroom', classroom, data);
+
+            room_socket.on('addclassroom', function(classroomList) {
+                for (var i = 0; i < classroomList.length; i++) {
+                    classList.push(classroomList[i]);
+                }
+            });
 
             document.getElementById('invite').addEventListener('click', startInvite);
 
@@ -89,7 +96,7 @@ $(function() {
                             'error'
                         )
                     } else {
-                        this.classroom_data = count_number.rows
+                        this.classroom_data = classList
                     }
                 }
             });
@@ -99,10 +106,10 @@ $(function() {
                 var tr = checkBtn.parent().parent();
                 var td = tr.children();
                 var room_name = td.eq(0).text(); 
-                for(var i = 0; i < classroom.length; i++) {
-                    if (classroom[i].class_name == room_name) {
+                for(var i = 0; i < classList.length; i++) {
+                    if (classList[i].class_name == room_name) {
                         Swal.fire({
-                            title: `${classroom[i].class_name}에 접속하시겠습니까?`,
+                            title: `${classList[i].class_name}에 접속하시겠습니까?`,
                             text: "접속하시려면 접속하기를 눌러주세요.",
                             icon: 'question',
                             showCancelButton: true,
@@ -112,9 +119,9 @@ $(function() {
                             cancelButtonText: '취소'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                for (var j = 0; j < classroom.length; j++) {
-                                    if (classroom[j].class_name == room_name) {
-                                        location.href = `/class/check/room/${classroom[j].class_id}`;
+                                for (var j = 0; j < classList.length; j++) {
+                                    if (classList[j].class_name == room_name) {
+                                        location.href = `/class/check/room/${classList[j].class_id}`;
                                     }
                                 }
                             }

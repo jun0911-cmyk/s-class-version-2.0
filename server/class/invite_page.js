@@ -24,24 +24,11 @@ module.exports = function(app) {
 
     app.post('/teacher/invite/list', (req, res) => {
         if(req.isAuthenticated()) {
-            models.student.findAll({
-                where: {
-                    select_teacher: req.user.email
-                }
-            }).then(function(list_data) {
-                models.student.findAndCountAll({
-                    where: {
-                        select_teacher: req.user.email
-                    }
-                })
-                .then(function(count_data) {
-                    res.json({ 
-                        inviteList: list_data, 
-                        user: req.user,
-                        Listcount: count_data 
-                    });
-                })
-                .catch(err => console.log(err));
+            models.User.findAll().then(function(list_data) {
+                res.json({
+                    inviteList: list_data,
+                    user: req.user
+                });
             })
             .catch(err => console.log(err));
         }

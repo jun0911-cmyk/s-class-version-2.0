@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            primaryKey: true
         },
         password: {
             type: DataTypes.STRING,
@@ -16,13 +17,19 @@ module.exports = (sequelize, DataTypes) => {
         },
         user_group: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            primaryKey: true
         },
         user_id: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            primaryKey: true
         },
         platform: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        select_teacher: {
             type: DataTypes.STRING,
             allowNull: false
         },

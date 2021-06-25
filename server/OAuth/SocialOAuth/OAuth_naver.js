@@ -21,7 +21,7 @@ module.exports = function(app, passport) {
         callbackURL: config.naver.callback
     }, 
     function (accessToken, refreshToken, profile, done) {
-        models.student.findOne({
+        models.User.findOne({
             where: {
                 email: profile.emails[0].value,
                 platform: 'naver'
@@ -29,13 +29,12 @@ module.exports = function(app, passport) {
         }).then(function(user) {
             var date = new Date();
             if(!user) {
-                models.student.create({
+                models.User.create({
                     email: profile.emails[0].value,
                     password: accessToken,
                     user_group: 'user',
                     user_id: 'testing',
                     platform: 'naver',
-                    access_status: 0,
                     select_teacher: 'not teacher',
                     create_account: date
                 }).then(function(user) {

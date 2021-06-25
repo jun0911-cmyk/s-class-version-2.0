@@ -10,10 +10,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         user_group: {
             type: DataTypes.STRING,
             allowNull: false
@@ -22,17 +18,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        platform: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         access_student: {
             type: DataTypes.STRING,
-            allowNull: false
-        },
-        create_account: {
-            type: DataTypes.DATE,
-            allowNull: false
+            allowNull: false,
+            primaryKey: true
         },
     }, {
         timestamps: false,

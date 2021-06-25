@@ -39,7 +39,7 @@ module.exports = function(app, passport) {
 
     passport.deserializeUser((id, done) => {
         console.log("DeSerialize");
-        models.student.findByPk(id).then(user => {
+        models.User.findByPk(id).then(user => {
             if (user) {
                 done(null, user);
             } else {
@@ -53,7 +53,7 @@ module.exports = function(app, passport) {
         passwordField: 'password',
     }, (username, password, done) => {
         var hashpwd = crypto.createHash('sha512').update(password).digest('base64');
-        models.student.findOne({ 
+        models.User.findOne({ 
             where: { 
                 email: username,
                 password: hashpwd

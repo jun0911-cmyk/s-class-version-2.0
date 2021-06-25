@@ -10,7 +10,16 @@ $(function() {
         success: function(result) {
             var user = result.user;
             var invite = result.inviteList;
-            var invitecount = result.Listcount;
+            var inviteList = [];
+
+            for (var i = 0; i < invite.length; i++) {
+                const array = invite[i].select_teacher.split(", ");
+                for (var j = 0; j < array.length; j++) {
+                    if (array[j] == user.email) {
+                        inviteList.push(invite[i]);
+                    }
+                }
+            }
 
             Vue.component('account-component', {
                 template: `
@@ -57,7 +66,7 @@ $(function() {
             new Vue({
                 el: '#account'
             });
-
+            
             new Vue({
                 el: '#col',
                 data() {
@@ -66,14 +75,7 @@ $(function() {
                     }
                 },
                 created() {
-                    for(var i = 0; i < invite.length; i++) {
-                        if(invitecount.rows[i].access_status == 1) {
-                            invitecount.rows[i].access_status = '요청 승인'
-                        } else {
-                            invitecount.rows[i].access_status = '요청 보류중'
-                        }
-                    }
-                    this.inviteData = invitecount.rows
+                    this.inviteData = inviteList
                 }
             });
 

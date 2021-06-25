@@ -1,3 +1,5 @@
+const room_socket = window.io();
+
 $(function() {
     $.ajax({
         url: '/student/check/class',
@@ -8,8 +10,16 @@ $(function() {
         success: function(result) {
             var data = result.data;
             var classroom = result.classroom;
-            var count_number = result.rows_number;
             var status = result.status;
+            var classList = [];
+
+            room_socket.emit('addcheckclassroom', classroom, data);
+
+            room_socket.on('addcheckclassroom', function(classroomList) {
+                for (var i = 0; i < classroomList.length; i++) {
+                    classList.push(classroomList[i]);
+                }
+            });
 
             Vue.component('account-component', {
                 template: `
@@ -72,7 +82,7 @@ $(function() {
                             'error'
                         )
                     } else {
-                        this.classroom_data = count_number.rows
+                        this.classroom_data = classList
                     }
                 }
             });

@@ -105,7 +105,7 @@ module.exports = function(app, io) {
                 socket.emit('userOverlap', classname);
             } else if (user.select_teacher != classname) {
                 if (user.select_teacher == 'not teacher') {
-                    models.student.update({
+                    models.User.update({
                         select_teacher: classname
                     }, {
                         where: {
@@ -119,7 +119,7 @@ module.exports = function(app, io) {
                 } 
                 
                 if (user.select_teacher != 'not teacher') {
-                    models.sequelize.query(`UPDATE student_dbs 
+                    models.sequelize.query(`UPDATE user_dbs 
                     SET select_teacher = CONCAT(select_teacher, ', ${classname}') WHERE email = '${user.email}'`, { type: QueryTypes.UPDATE }).then(function(result) {
                         socket.emit('successInvite', result);
                     })
@@ -128,39 +128,32 @@ module.exports = function(app, io) {
             }
         });
 
-        // 승인 요청 승인
+        // 승인 요청 승인 ( 중복 체크 만들어야됨 )
         socket.on('approve_access', function(inviteUser, Email, user) {
-            models.student.update({
-                access_status: 1
-            }, {
-                where: {
-                    email: Email
-                }
-            }).then(function(resultStudent) {
-                if (user.access_student == 'not student') {
-                    models.teacher.update({
-                        access_student: Email
-                    }, {
-                        where: {
-                            email: user.email
-                        }
-                    }).then(function(resultStudent) {
-                        socket.emit('approve_access', Email);
-                    })
-                    .catch(err => console.log(err));
-                    return;   
-                }
+            if (user.access_student == 'not student') {
+                models.teacher.update({
+                    access_student: Email
+                }, {
+                    where: {
+                        email: user.email
+                    }
+                }).then(function(resultStudent) {
+                    socket.emit('approve_access', Email)
+                })
+                .catch(err => console.log(err));
+                return;   
+            }
 
-                if (user.access_student != 'not student') {
-                    models.sequelize.query(`UPDATE teacher_dbs SET access_student = CONCAT(access_student, ', ${Email}') WHERE email = '${user.email}'`, { type: QueryTypes.UPDATE }).then(function(resultTeacher) {
-                        socket.emit('approve_access', Email);
-                    })
-                    .catch(err => console.log(err));
-                }
-            });
+            if (user.access_student != 'not student') {
+                models.sequelize.query(`UPDATE teacher_dbs 
+                SET access_student = CONCAT(access_student, ', ${Email}') WHERE email = '${user.email}'`, { type: QueryTypes.UPDATE }).then(function(resultTeacher) {
+                    socket.emit('approve_access', Email);
+                })
+                .catch(err => console.log(err));
+            }
         });
 
-        // 승인 요청 제거 ( 내일 )
+        // 승인 요청 제거 ( 만들어야됨 )
         socket.on('access_denied', function(inviteUser, Email, user) {
             models.student.update({
                 select_teacher: 'not teacher'
@@ -175,7 +168,7 @@ module.exports = function(app, io) {
 
         // 초대 요청 현황 확인
         socket.on('inviteStatus', function(user) {
-            models.student.findOne({
+            models.User.findOne({
                 where: {
                     email: user.email
                 }
@@ -188,6 +181,43 @@ module.exports = function(app, io) {
             });
         });
 
+        // 온라인 강의 목록 추가
+        socket.on('addclassroom', function(teacherList, user) {
+            for (var i = 0; i < teacherList.length; i++) {
+                const array = teacherList[i].access_student.split(", ");
+                for (j = 0; j < array.length; j++) {
+                    if (array[j] == user.email) {
+                        models.class.findAll({
+                            where: {
+                                class_host: teacherList[i].email,
+                                class_status: '1' 
+                            }
+                        }).then(function(classroomList) {
+                            socket.emit('addclassroom', classroomList);
+                        });
+                    }
+                }
+            }
+        });
+
+        // 오프라인 강의 목록 추가
+        socket.on('addcheckclassroom', function(teacherList, user) {
+            for (var i = 0; i < teacherList.length; i++) {
+                const array = teacherList[i].access_student.split(", ");
+                for (j = 0; j < array.length; j++) {
+                    if (array[j] == user.email) {
+                        models.class.findAll({
+                            where: {
+                                class_host: teacherList[i].email
+                            }
+                        }).then(function(classroomList) {
+                            socket.emit('addcheckclassroom', classroomList);
+                        });
+                    }
+                }
+            }
+        });
+        
         // CREATE ROOM START 권한 확인
         socket.on('check_create_class', function(roomId, user) {
             if (user.user_group != 'admin' || user.user_group != 'teacher') {

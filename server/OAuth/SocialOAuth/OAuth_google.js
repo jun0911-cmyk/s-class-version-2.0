@@ -21,7 +21,7 @@ module.exports = function(app, passport) {
         callbackURL: config.google.callback
     }, 
     function (accessToken, refreshToken, profile, done) {
-        models.student.findOne({
+        models.User.findOne({
             where: {
                 email: profile.emails[0].value,
                 platform: 'google'
@@ -29,13 +29,12 @@ module.exports = function(app, passport) {
         }).then(function(user) {
             if(!user) {
                 var date = new Date();
-                models.student.create({
+                models.User.create({
                     email: profile.emails[0].value,
                     password: accessToken,
                     user_group: 'user',
                     user_id: 'testing',
                     platform: 'google',
-                    access_status: 0,
                     select_teacher: 'not teacher',
                     create_account: date
                 }).then(function(user) {

@@ -9,18 +9,10 @@ export function inviteStatus(socket, user) {
     });
 
     socket.on('inviteStatus', function(result) {
-        if (result.access_status == 0) {
-            Swal.fire(
-                '현황 확인',
-                `현재 요청한 강사 이름 : ${result.select_teacher}, 요청 상태 : 보류중`,
-                'success'
-            )
-        } else if (result.access_status == 1) {
-            Swal.fire(
-                '현황 확인',
-                `현재 요청한 강사 이름 : ${result.select_teacher}, 요청 상태 : 승인되었습니다!`,
-                'success'
-            )
-        }
+        Swal.fire(
+            '현황 확인',
+            `현재 요청한 강사 이름 : ${result.select_teacher} : 요청 승인상태 : 곧 준비됩니다!`,
+            'success'
+        )
     });
 }
