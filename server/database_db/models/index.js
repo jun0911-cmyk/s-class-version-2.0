@@ -19,5 +19,7 @@ db.Sequelize = Sequelize;
 db.User = require('./user')(sequelize, Sequelize);
 db.teacher = require('./teacher')(sequelize, Sequelize);
 db.class = require('./class')(sequelize, Sequelize);
+db.problem = require('./problem')(sequelize, Sequelize);
+db.commentary = require('./commentary')(sequelize, Sequelize);
 
 module.exports = db;
