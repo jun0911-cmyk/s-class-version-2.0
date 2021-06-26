@@ -29,11 +29,11 @@
         <button id="my_screen_video" class="my_screen_video">화면공유 화면</button>
     </div>
     <video id="remoteVideo" class="remote_video_cont" playsinline autoplay></video>
-    <div class="mute">
+    <!--<div class="mute">
         <i id="slash_audio" class="fas fa-microphone-slash" style="color: red; margin-right: 5px"></i>
         <i id="slash_video" class="fas fa-video-slash" style="color: red; margin-right: 10px"></i>
         <span class="client_status" id="class_status" style="margin-left: auto;">jkw080305@naver.com</span>
-    </div>
+    </div>!-->
     <h3 class="remote_title" id="remote_title">수강자 화면이 여기에 표시됩니다.</h3>
     <div class="live_context">
         <span class="live">실시간 강의중</span>
@@ -51,7 +51,8 @@
             </div>
         </a>
     </div>
-    <div class="user_session">
+    <div class="user_session" id="sub_mod">
+        <problem_book-component id="problem_page"></problem_book-component>
         <div class="user_search">
             <label class="session_search_text">
                 <i style="
@@ -109,7 +110,7 @@
         </a>
         <a href="#noscroll" class="level" id="levels">
             <i class="fas fa-window-restore"></i>
-            <span style="position: absolute; font-size: 15px; margin-top: 45px; margin-left: -60px;">문제지 관리</span>
+            <span style="position: absolute; font-size: 15px; margin-top: 45px; margin-left: -60px;" id="problem_txt">문제지 관리</span>
         </a>
         <a href="#noscroll" class="screen" id="screens">
             <i class="fas fa-caret-square-up"></i>

@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        problem_data: {
+        problem_description: {
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        qroblem_category: {
+        problem_category: {
             type: DataTypes.STRING,
             allowNull: false
         },

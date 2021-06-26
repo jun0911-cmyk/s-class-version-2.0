@@ -12,6 +12,18 @@ $(function() {
             var classroom = result.classroom;
             var count_number = result.rows_number;
 
+            document.getElementById('invite').addEventListener('click', function(e) {
+                room_socket.emit('invite_code_check', user);
+            });
+
+            room_socket.on('invite_code_check', function(teacheruser) {
+                Swal.fire(
+                    `강사 코드 확인`,
+                    `${teacheruser.email}님의 강의실 초대코드 : ${teacheruser.invite_code} 해당코드는 3일후에 다시 생성되며 신뢰하지 않는 사람에게는 알려주지 마십시오.`,
+                    'success'
+                )
+            });
+
             Vue.component('account-component', {
                 template: `
                     <div class="dropdown">

@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        qroblem_category: {
+        problem_category: {
             type: DataTypes.STRING,
             allowNull: false
         },

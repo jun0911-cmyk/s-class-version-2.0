@@ -9,6 +9,7 @@ import {WaitingRoom} from "../wait_room/host_waiting_room.js";
 import {select_devicesList} from "../device_setting/select_devices.js";
 import {audio_devices_setting} from "../device_setting/select_devices_setting.js";
 import {attendanceCheck} from "../attendance/attendance_check.js";
+import {select_problem_page} from "../problem_books/select_problem_page.js";
 //import {SDPOfferProtoCol, SDPStatusProtoCol} from "../webrtc_protocol/p2p_protocol.js";
 
 const socket = window.io();
@@ -22,6 +23,7 @@ const muteAudio = document.getElementById('audios');
 const muteVideo = document.getElementById('videos');
 const screen = document.getElementById('screens');
 const videoSelect = document.getElementById('VideoSelect');
+const problem_book = document.getElementById('levels');
 const audioOutputSelect = document.getElementById('AudioOutputSelect');
 const audioInputSelect = document.getElementById('AudioInputSelect');
 const selectors = [videoSelect, audioInputSelect, audioOutputSelect];
@@ -57,6 +59,7 @@ $(function() {
             muteAudio.addEventListener('click', audios);
             muteVideo.addEventListener('click', videos);
             attendance.addEventListener('click', attendanceCheck);
+            problem_book.addEventListener('click', problem_page);
         
             function audios() {
                 mute_audio(localVideo, localStream);
@@ -64,6 +67,23 @@ $(function() {
         
             function videos() {
                 enabled_video(localVideo, localStream);
+            }
+
+            function problem_page() {
+                var problem = problem_book.classList;
+                var toggleProblem = problem.toggle('fa-window-restore');
+                if (toggleProblem == true) {
+                    $('#remoteVideo').hide();
+                    $('#remote_title').hide();
+                    $('#problem_page').show();
+                    document.getElementById('problem_txt').innerText = '문제지 종료';
+                    select_problem_page();
+                } else {
+                    $('#remoteVideo').show();
+                    $('#remote_title').show();
+                    $('#problem_page').hide();
+                    document.getElementById('problem_txt').innerText = '문제지 관리';
+                }
             }
 
             navigator.mediaDevices.getUserMedia({

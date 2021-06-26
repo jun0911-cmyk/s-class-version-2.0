@@ -172,6 +172,17 @@ module.exports = function(app, io) {
             });
         });
 
+        // 강사 초대코드 확인
+        socket.on('invite_code_check', function(user) {
+            models.teacher.findOne({
+                where: {
+                    email: user.email
+                }
+            }).then(function(result) {
+                socket.emit('invite_code_check', result);
+            });
+        });
+
         // 학생 내 강사 목록 확인
         socket.on('inviteList', function(invite, user) {
             const array = user.select_teacher.split(", ");
