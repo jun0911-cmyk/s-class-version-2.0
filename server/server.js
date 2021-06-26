@@ -52,9 +52,7 @@ require('./OAuth/SocialOAuth/OAuth_github')(app, passport);
 require('./class/class_server')(app);
 require('./class/check_class_server')(app);
 require('./class/teacher_class_server')(app);
-
-// Invite
-require('./class/invite_page')(app);
+require('./class/teacher_invite')(app);
 
 // WebRTC
 require('./class/webrtc_server/rtc_connect')(app, io, server);

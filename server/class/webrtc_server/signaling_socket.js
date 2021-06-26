@@ -72,6 +72,39 @@ module.exports = function(app, io) {
             }
         }
 
+        function delectInvite(Email, user) {
+            models.User.findOne({
+                where: { 
+                    email: Email
+                }
+            }).then(function(delectUser) {
+                const delectsplit = delectUser.select_teacher.split(", ");
+                if (delectsplit.length == 1) {
+                    models.User.update({
+                        select_teacher: 'not teacher'
+                    }, {
+                        where: {
+                            email: Email
+                        }
+                    })
+                    .catch(err => console.log(err));
+                } else if (delectsplit.length != 1) {
+                    for (var i = 0; i < delectsplit.length; i++) {
+                        if (delectsplit[i] != user.email) {
+                            models.User.update({
+                                select_teacher: delectsplit[i]
+                            }, {
+                                where: {
+                                    email: Email
+                                }
+                            })
+                            .catch(err => console.log(err));
+                        }
+                    }
+                }
+            });
+        }
+
         socket.on('message', function(message) {
             socket.broadcast.emit('message', message);
         });
@@ -101,69 +134,27 @@ module.exports = function(app, io) {
 
         // 학생 DB에 담당 교사 이름 추가
         socket.on('AddInvite', function(classname, user) {
-            if (user.select_teacher == classname) {
-                socket.emit('userOverlap', classname);
-            } else if (user.select_teacher != classname) {
-                if (user.select_teacher == 'not teacher') {
-                    models.User.update({
-                        select_teacher: classname
-                    }, {
-                        where: {
-                            email: user.email
-                        }
-                    }).then(function(result) {
-                        socket.emit('successInvite', result)
-                    })
-                    .catch(err => console.log(err));
-                    return;
-                } 
-                
-                if (user.select_teacher != 'not teacher') {
-                    models.sequelize.query(`UPDATE user_dbs 
-                    SET select_teacher = CONCAT(select_teacher, ', ${classname}') WHERE email = '${user.email}'`, { type: QueryTypes.UPDATE }).then(function(result) {
-                        socket.emit('successInvite', result);
-                    })
-                    .catch(err => console.log(err));
-                }
-            }
-        });
-
-        // 승인 요청 승인 ( 중복 체크 만들어야됨 )
-        socket.on('approve_access', function(inviteUser, Email, user) {
-            if (user.access_student == 'not student') {
-                models.teacher.update({
-                    access_student: Email
+            if (user.select_teacher == 'not teacher') {
+                models.User.update({
+                    select_teacher: classname
                 }, {
                     where: {
                         email: user.email
                     }
-                }).then(function(resultStudent) {
-                    socket.emit('approve_access', Email)
+                }).then(function(result) {
+                    socket.emit('successInvite', result)
                 })
                 .catch(err => console.log(err));
-                return;   
-            }
-
-            if (user.access_student != 'not student') {
-                models.sequelize.query(`UPDATE teacher_dbs 
-                SET access_student = CONCAT(access_student, ', ${Email}') WHERE email = '${user.email}'`, { type: QueryTypes.UPDATE }).then(function(resultTeacher) {
-                    socket.emit('approve_access', Email);
+                return;
+            } 
+            
+            if (user.select_teacher != 'not teacher') {
+                models.sequelize.query(`UPDATE user_dbs 
+                SET select_teacher = CONCAT(select_teacher, ', ${classname}') WHERE email = '${user.email}'`, { type: QueryTypes.UPDATE }).then(function(result) {
+                    socket.emit('successInvite', result);
                 })
                 .catch(err => console.log(err));
             }
-        });
-
-        // 승인 요청 제거 ( 만들어야됨 )
-        socket.on('access_denied', function(inviteUser, Email, user) {
-            models.student.update({
-                select_teacher: 'not teacher'
-            }, {
-                where: {
-                    email: Email
-                }
-            }).then(function(result) {
-                socket.emit('access_denied', Email);
-            });
         });
 
         // 초대 요청 현황 확인
@@ -181,40 +172,78 @@ module.exports = function(app, io) {
             });
         });
 
-        // 온라인 강의 목록 추가
-        socket.on('addclassroom', function(teacherList, user) {
-            for (var i = 0; i < teacherList.length; i++) {
-                const array = teacherList[i].access_student.split(", ");
+        // 학생 내 강사 목록 확인
+        socket.on('inviteList', function(invite, user) {
+            const array = user.select_teacher.split(", ");
+            for (j = 0; j < array.length; j++) {
+                models.teacher.findAll({
+                    where: {
+                        email: array[j]
+                    }
+                }).then(function(inviteList) {
+                    socket.emit('inviteList', inviteList);
+                });
+            }
+        });
+
+
+        // 학생 강사 취소
+        socket.on('delect_teacher', function(delectUser, user) {
+            const array = user.select_teacher.split(", ");
+            if (array.length == 1) {
+                models.User.update({
+                    select_teacher: 'not teacher'
+                }, {
+                    where: {
+                        email: user.email
+                    }
+                }).then(function(delectsuccess) {
+                    socket.emit('delect_teacher', delectsuccess);
+                });
+            } else if (array.length != 1) {
                 for (j = 0; j < array.length; j++) {
-                    if (array[j] == user.email) {
-                        models.class.findAll({
+                    console.log(array[j]);
+                    if (array[j] != delectUser) {
+                        models.User.update({
+                            select_teacher: array[j]
+                        }, {
                             where: {
-                                class_host: teacherList[i].email,
-                                class_status: '1' 
+                                email: user.email
                             }
-                        }).then(function(classroomList) {
-                            socket.emit('addclassroom', classroomList);
+                        }).then(function(delectsuccess) {
+                            socket.emit('delect_teacher', delectsuccess);
                         });
                     }
                 }
             }
         });
 
+        // 온라인 강의 목록 추가
+        socket.on('addclassroom', function(teacherList, user) {
+            const array = user.select_teacher.split(", ");
+            for (j = 0; j < array.length; j++) {
+                models.class.findAll({
+                    where: {
+                        class_host: array[j],
+                        class_status: '1' 
+                    }
+                }).then(function(classroomList) {
+                    socket.emit('addclassroom', classroomList);
+                });
+            }
+        });
+
         // 오프라인 강의 목록 추가
         socket.on('addcheckclassroom', function(teacherList, user) {
-            for (var i = 0; i < teacherList.length; i++) {
-                const array = teacherList[i].access_student.split(", ");
-                for (j = 0; j < array.length; j++) {
-                    if (array[j] == user.email) {
-                        models.class.findAll({
-                            where: {
-                                class_host: teacherList[i].email
-                            }
-                        }).then(function(classroomList) {
-                            socket.emit('addcheckclassroom', classroomList);
-                        });
+            const array = user.select_teacher.split(", ");
+            for (j = 0; j < array.length; j++) {
+                models.class.findAll({
+                    where: {
+                        class_host: array[j]
                     }
-                }
+                }).then(function(classroomList) {
+                    socket.emit('addcheckclassroom', classroomList);
+                });
             }
         });
         

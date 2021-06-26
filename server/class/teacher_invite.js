@@ -6,18 +6,18 @@ const app = express();
 module.exports = function(app) {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.use('/student/check/class', express.static('../public/css'));
-    app.use('/student/check/class', express.static('../public/client'));
+    app.use('/student/invite', express.static('../public/css'));
+    app.use('/student/invite', express.static('../public/client'));
 
-    app.get('/student/check/class', function(req, res) {
+    app.get('/student/invite', function(req, res) {
         if(req.isAuthenticated()) {
-            res.sendFile(path.join(__dirname, '..', '..', '/public/views/check_class.html'));
+            res.sendFile(path.join(__dirname, '..', '..', '/public/views/invite_check.html'));
         } else {
             res.redirect('/');
         }
     });
 
-    app.post('/student/check/class', (req, res) => {
+    app.post('/student/invite', (req, res) => {
         if(req.isAuthenticated()) {
             models.User.findOne({
                 where: {
@@ -27,12 +27,12 @@ module.exports = function(app) {
                 if (teacherList.select_teacher == 'not teacher') {
                     res.json({
                         status: 'no',
-                        classroom: teacherList,
+                        invite: teacherList,
                         data: req.user
                     });
                 } else if (teacherList.select_teacher != 'not teacher') {
                     res.json({
-                        classroom: teacherList,
+                        invite: teacherList,
                         data: req.user
                     });
                 }

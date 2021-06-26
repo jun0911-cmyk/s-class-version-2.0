@@ -1,9 +1,9 @@
 export async function invite_code(socket, user) {
     const { value: InviteCode } = await Swal.fire({
-        title: `강의실 참가하기`,
+        title: `강사 코드입력`,
         input: 'text',
-        inputLabel: '강의실 참가 코드를 입력해주세요 ( 대소문자 구분 필수 )',
-        inputPlaceholder: '여기에 참가 코드를 입력해주세요...'
+        inputLabel: '강의실 강사 코드를 입력해주세요 ( 대소문자 구분 필수 )',
+        inputPlaceholder: '여기에 강사 코드를 입력해주세요...'
     });
 
     if (InviteCode) {
@@ -19,11 +19,10 @@ export async function invite_code(socket, user) {
     }
 
     socket.on('success_code', function(InviteCode, Teacherresult) {
-        console.log(user);
         Swal.fire({
             icon: 'info',
             title: `강사 확인`,
-            text: `해당 초대 코드의 강사는 ${Teacherresult.user_id} 강사입니다. 해당 강사가 맞으십니까?`,
+            text: `해당 초대 코드의 강사는 ${Teacherresult.user_id}번 강사입니다. 해당 강사가 맞으십니까?`,
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -53,9 +52,11 @@ export async function invite_code(socket, user) {
     socket.on('successInvite', function(result) {
         Swal.fire(
             `요청 전송 성공!`,
-            `강사에게 요청을 성공적으로 보냈습니다!`,
+            `강사요청이 성공적으로 완료되었습니다!`,
             'success'
-        );
+        ).then(function(resultData) {
+            location.reload();
+        });
     });
 
     socket.on('fail_code', function(InviteCode) {

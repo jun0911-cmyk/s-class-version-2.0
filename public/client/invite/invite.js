@@ -1,34 +1,25 @@
-import { invite_code } from "../invite/invite_code.js";
-import { inviteStatus } from "../invite/invite_status.js";
-
 const room_socket = window.io();
 
 $(function() {
     $.ajax({
-        url: '/student/class',
+        url: '/student/invite',
         datatype: 'json',
         type: 'POST',
         data: {
         },   
         success: function(result) {
             var data = result.data;
-            var classroom = result.classroom;
+            var invite = result.invite;
             var status = result.status;
-            var classList = [];
+            var inviteList = [];
 
-            room_socket.emit('addclassroom', classroom, data);
+            room_socket.emit('inviteList', invite, data);
 
-            room_socket.on('addclassroom', function(classroomList) {
-                for (var i = 0; i < classroomList.length; i++) {
-                    classList.push(classroomList[i]);
+            room_socket.on('inviteList', function(inviteLists) {
+                for (var i = 0; i < inviteLists.length; i++) {
+                    inviteList.push(inviteLists[i]);
                 }
             });
-
-            document.getElementById('invite').addEventListener('click', startInvite);
-
-            function startInvite() {
-                invite_code(room_socket, data);
-            }
 
             Vue.component('account-component', {
                 template: `
@@ -54,13 +45,13 @@ $(function() {
 
             Vue.component('main-component', {
                 template: `
-                    <h1>${data.email} 님의 온라인 강의실</h1>
+                    <h1>${data.email} 님의 강사 목록</h1>
                 `
             });
 
             Vue.component('sub-component', {
                 template: `
-                <h3>현재 온라인 강의 목록</h3>
+                <h3>현재 강사 목록</h3>
                 `
             });
 
@@ -80,49 +71,57 @@ $(function() {
                 el: '#col',
                 data() {
                     return {
-                        classroom_data: []
+                        inviteList_data: []
                     }
                 },
                 created() {
                     if (status == 'no') {
                         Swal.fire(
                             '강의실 없음',
-                            '현재 등록되신 강의실이 없으십니다. 강사코드로 강사를 추가해보세요. (이 메시지는 경고메시지가 아닙니다.)',
+                            '현재 등록되신 강사가 없으십니다. 강사코드로 강사를 추가해보세요. (이 메시지는 경고메시지가 아닙니다.)',
                             'error'
                         )
                     } else {
-                        this.classroom_data = classList
+                        this.inviteList_data = inviteList
                     }
                 }
             });
 
-            $(document).on("click", "#room_btn", function() {
+            $(document).on("click", "#remove_btn", function() {
                 var checkBtn = $(this);
                 var tr = checkBtn.parent().parent();
                 var td = tr.children();
                 var room_name = td.eq(0).text(); 
-                for(var i = 0; i < classList.length; i++) {
-                    if (classList[i].class_name == room_name) {
+                for(var i = 0; i < inviteList.length; i++) {
+                    if (inviteList[i].email == room_name) {
                         Swal.fire({
-                            title: `${classList[i].class_name}에 접속하시겠습니까?`,
-                            text: "접속하시려면 접속하기를 눌러주세요.",
+                            title: `${inviteList[i].email} 강사를 취소하시겠습니까?`,
+                            text: "모든 강의목록과 온라인 강의목록에서 삭제됩니다.",
                             icon: 'question',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: '접속하기',
+                            confirmButtonText: '강사취소',
                             cancelButtonText: '취소'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                for (var j = 0; j < classList.length; j++) {
-                                    if (classList[j].class_name == room_name) {
-                                        location.href = `/class/check/room/${classList[j].class_id}`;
-                                    }
+                                for (var j = 0; j < inviteList.length; j++) {
+                                    room_socket.emit('delect_teacher', inviteList[j].email, data);
                                 }
                             }
                         });
                     }
                 }
+            });
+
+            room_socket.on('delect_teacher', function(success) {
+                Swal.fire(
+                    '취소 성공',
+                    `강사를 성공적으로 취소하였습니다.`,
+                    'success'
+                ).then(function(result) {
+                    location.reload();
+                });
             });
         },
         error: function(request,status,error) { 

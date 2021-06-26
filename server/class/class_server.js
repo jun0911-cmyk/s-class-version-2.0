@@ -26,11 +26,23 @@ module.exports = function(app) {
 
     app.post('/student/class', (req, res) => {
         if(req.isAuthenticated()) {
-            models.teacher.findAll().then(function(teacherList) {
-                res.json({
-                    classroom: teacherList,
-                    data: req.user
-                });
+            models.User.findOne({
+                where: {
+                    email: req.user.email
+                }
+            }).then(function(teacherList) {
+                if (teacherList.select_teacher == 'not teacher') {
+                    res.json({
+                        status: 'no',
+                        classroom: teacherList,
+                        data: req.user
+                    });
+                } else if (teacherList.select_teacher != 'not teacher') {
+                    res.json({
+                        classroom: teacherList,
+                        data: req.user
+                    });
+                }
             })
             .catch(err => console.log(err));
         }
