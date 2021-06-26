@@ -23,6 +23,12 @@ export function select_problem_page() {
                     <li>정보</li>
                 </ul>
             </div>
+            <div class="search_result" style="position: absolute;">
+                <h3 class="search_message">카테고리 검색 결과</h3>
+            </div>
+            <div class="not_found" style="position: absolute;">
+                <h3 class="not_search_message">카테고리 검색 결과가 표시됩니다.</h3> 
+            </div>
         </div>
         `
     });

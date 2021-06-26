@@ -507,6 +507,25 @@
         animation-fill-mode: forwards;
     }
 
+    .search_result {
+        margin-left: -76%;
+        margin-top: -6.3%;
+    }
+
+    .not_found {
+        margin-left: -50%;
+        margin-top: 5%;
+    }
+
+    .search_message {
+        font-weight: 900;
+    }
+
+    .not_search_message {
+        font-weight: 900;
+        color: gray;
+    }
+
     .user_chat {
         width: 450px;
         height: 443px;
