@@ -46,10 +46,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        inivte_code: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         limit_join: {
             type: DataTypes.BIGINT,
             allowNull: 0

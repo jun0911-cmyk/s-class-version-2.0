@@ -82,15 +82,15 @@ module.exports = function(app, io) {
 
         // 초대코드 체크
         socket.on('checkInviteCode', function(InviteCode) {
-            models.class.findOne({
+            models.teacher.findOne({
                 where: {
-                    inivte_code: InviteCode
+                    invite_code: InviteCode
                 }
             }).then(function(result) {
                 if (result == null) {
                     socket.emit('fail_code', InviteCode);
                 } else {
-                    if (result.inivte_code == InviteCode) {
+                    if (result.invite_code == InviteCode) {
                         socket.emit('success_code', InviteCode, result);
                     } else {
                         socket.emit('fail_code', InviteCode);

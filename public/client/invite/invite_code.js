@@ -23,7 +23,7 @@ export async function invite_code(socket, user) {
         Swal.fire({
             icon: 'info',
             title: `강사 확인`,
-            text: `해당 초대 코드의 강사는 ${Teacherresult.class_host} 강사입니다. 해당 강사가 맞으십니까?`,
+            text: `해당 초대 코드의 강사는 ${Teacherresult.user_id} 강사입니다. 해당 강사가 맞으십니까?`,
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -31,7 +31,7 @@ export async function invite_code(socket, user) {
             cancelButtonText: '아니요'
         }).then((result) => {
             if (result.isConfirmed) {
-                socket.emit('AddInvite', Teacherresult.class_host, user);
+                socket.emit('AddInvite', Teacherresult.email, user);
             } else {
                 Swal.fire(
                     `요청 취소`,

@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+        invite_code: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         access_student: {
             type: DataTypes.STRING,
             allowNull: false,
