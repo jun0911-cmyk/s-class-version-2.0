@@ -279,43 +279,6 @@
 
 /* 큰 모니터 */
 @media only screen and (min-width : 1824px) {
-    .loading {
-        position: absolute;
-        border:0;
-        background-color: #16eee3ad;
-        padding:0px;
-        margin-top: 300px;
-        width: 30%;
-        height: 30%;
-        margin-left: 35%;
-        border-radius: 10px;
-        z-index: 99;
-    }
-
-    .text {
-        text-align: center;
-        font-size: xx-large;
-        font-weight: 600;
-        padding: 50px;
-    }
-        
-    .spin {
-        margin-left: 255px;
-        height: 70px;
-        width: 70px;
-        border-radius: 50%;
-        border:dashed 5px rgb(87, 80, 80);
-        animation-name: spin;
-        animation-duration: 1.2s;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;
-    }
-        
-    @keyframes spin {
-        from   {  -webkit-transform: rotate(0deg); }
-        to   {  -webkit-transform: rotate(360deg); }
-    }
-    
     .live_context {
         font-family: 'Cafe24Ohsquare';
         margin-top: -15.5%;
@@ -761,38 +724,6 @@ div {
     border: none;
     background-color: #403f3d;
     color: white;
-}
-
-@-webkit-keyframes blink { 
-    0% {
-        opacity:0;
-    } 
-    30% {
-        opacity:1;
-    } 
-    100% {
-        opacity:1;
-    } 
-} @-moz-keyframes blink {
-    0% {
-        opacity:0;
-    } 
-    30% {
-        opacity:1;
-    } 
-    100% {
-        opacity:1;
-    } 
-} @keyframes blink { 
-    0% {
-        opacity:0;
-    } 
-    30% {
-        opacity:1;
-    } 
-    100% {
-        opacity:1;
-    } 
 }
 
 @keyframes search_problem {
