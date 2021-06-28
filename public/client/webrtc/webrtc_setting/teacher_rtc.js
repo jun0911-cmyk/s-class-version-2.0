@@ -9,7 +9,7 @@ import {WaitingRoom} from "../wait_room/host_waiting_room.js";
 import {select_devicesList} from "../device_setting/select_devices.js";
 import {audio_devices_setting} from "../device_setting/select_devices_setting.js";
 import {attendanceCheck} from "../attendance/attendance_check.js";
-import {select_problem_page} from "../problem_books/select_problem_page.js";
+import {select_problem_page} from "../problem_books/problem_page.js";
 //import {SDPOfferProtoCol, SDPStatusProtoCol} from "../webrtc_protocol/p2p_protocol.js";
 
 const socket = window.io();
