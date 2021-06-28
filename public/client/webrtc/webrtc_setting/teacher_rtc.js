@@ -77,7 +77,7 @@ $(function() {
                     $('#remote_title').hide();
                     $('#problem_page').show();
                     document.getElementById('problem_txt').innerText = '문제지 종료';
-                    select_problem_page();
+                    select_problem_page(socket, user);
                 } else {
                     $('#remoteVideo').show();
                     $('#remote_title').show();

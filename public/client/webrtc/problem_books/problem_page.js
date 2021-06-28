@@ -1,5 +1,6 @@
-export function select_problem_page() {
+export function select_problem_page(socket, user) {
     Vue.component('problem_book-component', {
+        props: ['message'],
         template: `
         <div class="problem_data">
             <div class="problem_data_search">
@@ -24,7 +25,7 @@ export function select_problem_page() {
                 </ul>
             </div>
             <div class="search_result" style="position: absolute;">
-                <h3 class="search_message">S-CLASS 추천 문제</h3>
+                <h3 class="search_message">${user.email} 님을 위한 추천문제</h3>
             </div>
         </div>
         `
