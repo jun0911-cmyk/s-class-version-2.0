@@ -9,7 +9,7 @@ import {WaitingRoom} from "../wait_room/host_waiting_room.js";
 import {select_devicesList} from "../device_setting/select_devices.js";
 import {audio_devices_setting} from "../device_setting/select_devices_setting.js";
 import {attendanceCheck} from "../attendance/attendance_check.js";
-import {select_problem_page} from "../problem_books/problem_page.js";
+import {problem_search} from "../problem_books/select_problem.js";
 //import {SDPOfferProtoCol, SDPStatusProtoCol} from "../webrtc_protocol/p2p_protocol.js";
 
 const socket = window.io();
@@ -70,20 +70,7 @@ $(function() {
             }
 
             function problem_page() {
-                var problem = problem_book.classList;
-                var toggleProblem = problem.toggle('fa-window-restore');
-                if (toggleProblem == true) {
-                    $('#remoteVideo').hide();
-                    $('#remote_title').hide();
-                    $('#problem_page').show();
-                    document.getElementById('problem_txt').innerText = '문제지 종료';
-                    select_problem_page(socket, user);
-                } else {
-                    $('#remoteVideo').show();
-                    $('#remote_title').show();
-                    $('#problem_page').hide();
-                    document.getElementById('problem_txt').innerText = '문제지 관리';
-                }
+                problem_search(user, roomId);
             }
 
             navigator.mediaDevices.getUserMedia({

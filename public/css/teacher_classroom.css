@@ -418,77 +418,6 @@
         margin-top: 50px;
     }
 
-    .problem_data_search {
-        position: absolute;
-        margin-left: -76%;
-        margin-top: -14.3%;
-    }
-
-    .search_problem {
-        border-radius: 5px;
-        background-color: #e5e5e5;
-        height: 40px;
-        border: none;
-        outline: none;
-    }
-
-    .search_problem:focus {
-        animation-name: search_problem;
-        animation-duration: 0.5s;
-        animation-fill-mode: forwards;
-    }
-
-    li {
-        list-style: none;
-    }
-
-    .recommended_category {
-        margin-left: -76%;
-        margin-top: -11.3%;
-        width: 600px;
-        height: 40px;
-        font-weight: 900;
-    }
-
-    .recommended_category ul li {
-        cursor: pointer;
-        background-color: #e8dfeb;
-        color: #7b4646;
-        margin: 3px;
-        border-radius: 30px;
-        float: left;
-        width: 10%;
-        height: 10%;
-        line-height: 20px;
-        text-align: center;
-        border: 1px solid #e8dfeb;
-    }
-
-    .recommended_category ul li:hover {
-        animation-name: recommended_category;
-        animation-duration: 0.5s;
-        animation-fill-mode: forwards;
-    }
-
-    .search_result {
-        margin-left: -76%;
-        margin-top: -6.3%;
-    }
-
-    .not_found {
-        margin-left: -50%;
-        margin-top: 5%;
-    }
-
-    .search_message {
-        font-weight: 900;
-    }
-
-    .not_search_message {
-        font-weight: 900;
-        color: gray;
-    }
-
     .user_chat {
         width: 450px;
         height: 443px;
@@ -724,24 +653,4 @@ div {
     border: none;
     background-color: #403f3d;
     color: white;
-}
-
-@keyframes search_problem {
-    70% {
-        background-color: #f7f2f2;
-        box-shadow: 0 0 0 2px #b9a6a6;
-    }
-    100% {
-        background-color: #f7f2f2;
-        box-shadow: 0 0 0 2px #b9a6a6;
-    } 
-}
-
-@keyframes recommended_category {
-    90% {
-        background-color: #dededf;
-    }
-    100% {
-        background-color: #dededf;
-    }
 }

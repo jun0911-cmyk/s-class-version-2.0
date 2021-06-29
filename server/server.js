@@ -60,6 +60,9 @@ require('./class/webrtc_server/check_room')(app, io, server);
 require('./class/webrtc_server/signaling_socket')(app, io);
 require('./class/webrtc_server/screen_server')(app, io, server); 
 
+// Problem
+require('./problem_server/problem_page_server')(app, io, server);
+
 // s-class connection
 app.use('/s-class', express.static('../public/views'));
 app.use('/s-class', express.static('../public/css'));
