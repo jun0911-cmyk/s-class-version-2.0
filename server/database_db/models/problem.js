@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+        problem_subject: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         problem_category: {
             type: DataTypes.STRING,
             allowNull: false
