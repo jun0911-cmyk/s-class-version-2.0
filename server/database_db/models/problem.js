@@ -26,6 +26,18 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+        correct_answer_rate: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        wrong_answer_rate: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        school_lavel: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         questioner: {
             type: DataTypes.STRING,
             allowNull: false,
