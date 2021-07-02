@@ -25,11 +25,11 @@ model.add(layers.Dense(10, activation='softmax'))
 model.summary();
 print('모델을 생성하였습니다.')
 
+print('CNN 머신러닝 진행중...')
 model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 model.fit(train_images, train_labels, epochs=15)
-print('CNN 머신러닝 진행중...')
 
 test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
 
