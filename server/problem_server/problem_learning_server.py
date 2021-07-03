@@ -31,10 +31,10 @@ model.add(layers.MaxPooling2D((2, 2)))
 # Pooling 진행
 model.add(layers.Conv2D(64, (3, 3), activation='relu'))
 
-# 3D 피쳐 맵 백터로 1D 형태로 피쳐맵을 바꿈
+# 현재 출력은 3D 텐서이다. 먼저 3D 출력을 1D로 평평하게 (또는 펼친 다음) 위에 하나 이상의 Dense 레이어를 추가
 model.add(layers.Flatten())
 
-# 현재 출력은 3D 텐서이다. 먼저 3D 출력을 1D로 평평하게 (또는 펼친 다음) 위에 하나 이상의 Dense 레이어를 추가
+# 모델을 완성하기 위해 컨벌루션베이스 (모양 (4, 4, 64))의 마지막 출력 텐서를 하나 이상의 Dense 레이어로 공급하여 분류를 수행
 model.add(layers.Dense(64, activation='relu'))
 
 # 10 개의 출력 클래스가 있으므로 10 개의 출력이있는 최종 Dense 레이어를 사용
