@@ -25,10 +25,10 @@ model.add(layers.MaxPooling2D((2, 2)))
 # 컨블루션 진행
 model.add(layers.Conv2D(64, (3, 3), activation='relu'))
 
-# 동일
+# 컨블루션 진행
 model.add(layers.MaxPooling2D((2, 2)))
 
-# 동일
+# Pooling 진행
 model.add(layers.Conv2D(64, (3, 3), activation='relu'))
 
 # 3D 피쳐 맵 백터로 1D 형태로 피쳐맵을 바꿈
