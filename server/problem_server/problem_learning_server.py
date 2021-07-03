@@ -16,28 +16,28 @@ train_images, test_images = train_images / 255.0, test_images / 255.0
 # Sequential 형태로 모델 생성
 model = models.Sequential()
 
-# 컨블루션 으로 설정 밤법 layers.Conv2D(총필터갯수, (높이, 너비), activation='활성화 함수', input_shape(높이, 너비, 두깨)) 활성화 함수 relu는 그래프상 양수 값만 따지고 음수값은 0으로 무시하겠다는 함수
+# 컨블루션 으로 설정 밤법 layers.Conv2D(총필터갯수, (높이, 너비), activation='활성화 함수', input_shape(높이, 너비, 두깨)) 활성화 함수 relu는 그래프상 양수 값만 따지고 음수값은 0으로 무시하겠다는 함수 컨블루션을 할시 28x28이 26x26이 된다.
 model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)))
 
-# MaxPooling 진행 2x2 사이즈로 Pooling시 원래 필터에서 2배가 감소함
+# MaxPooling 진행 2x2 사이즈로 Pooling시 원래 필터에서 2배가 감소함 : 13x13
 model.add(layers.MaxPooling2D((2, 2)))
 
-# 컨블루션 진행
+# 컨블루션 진행 11x11
 model.add(layers.Conv2D(64, (3, 3), activation='relu'))
 
-# 컨블루션 진행
+# 컨블루션 진행 5x5
 model.add(layers.MaxPooling2D((2, 2)))
 
-# Pooling 진행
+# Pooling 진행 3x3
 model.add(layers.Conv2D(64, (3, 3), activation='relu'))
 
-# 현재 출력은 3D 텐서이다. 먼저 3D 출력을 1D로 평평하게 (또는 펼친 다음) 위에 하나 이상의 Dense 레이어를 추가
+# 현재 출력은 3D 텐서이다. 먼저 3D 출력을 1D로 평평하게 (또는 펼친 다음) 위에 하나 이상의 Dense 레이어를 추가 576 백터
 model.add(layers.Flatten())
 
-# 모델을 완성하기 위해 컨벌루션베이스 (모양 (4, 4, 64))의 마지막 출력 텐서를 하나 이상의 Dense 레이어로 공급하여 분류를 수행
+# 모델을 완성하기 위해 컨벌루션베이스 (모양 (4, 4, 64))의 마지막 출력 텐서를 하나 이상의 Dense 레이어로 공급하여 분류를 수행 64 Flatten
 model.add(layers.Dense(64, activation='relu'))
 
-# 10 개의 출력 클래스가 있으므로 10 개의 출력이있는 최종 Dense 레이어를 사용
+# 10 개의 출력 클래스가 있으므로 10 개의 출력이있는 최종 Dense 레이어를 사용 10 classes
 model.add(layers.Dense(10))
 
 # 모델 계층 출력
