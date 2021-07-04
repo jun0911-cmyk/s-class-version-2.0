@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 # 손글씨와 숫자로만 이루어진 데이터 Set을 로드하여 저장
 (train_images, train_labels), (test_images, test_labels) = datasets.mnist.load_data()
 
-# 이미지를 재설정하지 않으면 shape의 값을 알수 없기 때문에 튜플형태로 재설정을 함, 초기화 방법 데이터변수.reshape((도합데이터 갯수, image_height, image_width, 두꺠))
+# 이미지를 재설정하지 않으면 shape의 값을 알수 없기 때문에 튜플형태로 재설정을 함, 초기화 방법 데이터변수.reshape((도합데이터 갯수, image_height, image_width, 두꺠(strid)))
 train_images = train_images.reshape((60000, 28, 28, 1))
 test_images = test_images.reshape((10000, 28, 28, 1))
 
@@ -38,7 +38,7 @@ model.add(layers.Flatten())
 model.add(layers.Dense(64, activation='relu'))
 
 # 10 개의 출력 클래스가 있으므로 10 개의 출력이있는 최종 Dense 레이어를 사용 10 classes
-model.add(layers.Dense(10))
+model.add(layers.Dense(10, activation='softmax'))
 
 # 모델 계층 출력
 model.summary()
@@ -52,15 +52,16 @@ model.compile(optimizer='adam',
 history = model.fit(train_images, train_labels, epochs=10, validation_data=(test_images, test_labels))
 
 # 정확도 계산 verobse 0 = silent, 1 = progress bar, 2 = one line per epoch
-test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
+loss, acc = model.evaluate(test_images,  test_labels, verbose=2)
 
-print('종합 어큐러시 : ', test_acc)
+print('total_accuracy : ', acc)
 
 # 어큐러시 상태 그래프화
 plt.plot(history.history['accuracy'], label='accuracy')
 plt.plot(history.history['val_accuracy'], label = 'val_accuracy')
 plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
-plt.ylim([0.7, 1])
 plt.legend(loc='lower right')
 plt.show()
+
+# 언제까지 계속 이러고만 공부하고만 있을 순 없다. 내일부터 필터어떻게 할지 생각하고 학습네트워크 모델 한번 생각(구현아님) 해보기. 최소정확도 95% 이상 나와야 함. overfitt(과적합) 되지 않도록 주의하고 모델한번 생각해보기 관련 데이터가 없음.
