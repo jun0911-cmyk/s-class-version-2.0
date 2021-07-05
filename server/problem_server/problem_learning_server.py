@@ -37,7 +37,7 @@ model.add(layers.Flatten())
 # 모델을 완성하기 위해 컨벌루션베이스 (모양 (4, 4, 64))의 마지막 출력 텐서를 하나 이상의 Dense 레이어로 공급하여 분류를 수행 64 Flatten
 model.add(layers.Dense(64, activation='relu'))
 
-# 10 개의 출력 클래스가 있으므로 10 개의 출력이있는 최종 Dense 레이어를 사용 10 classes 활성화 함수를 softmax로 setting
+# 10 개의 출력 클래스가 있으므로 10 개의 출력이있는 최종 Dense 레이어를 사용 10 classes 활성화 함수를 softmax로 설정한다.
 model.add(layers.Dense(10, activation='softmax'))
 
 # 모델 계층 출력
@@ -49,21 +49,35 @@ model.compile(optimizer='adam',
     metrics=['accuracy'])
 
 # 모델 학습 epochs=분류 갯수
-history = model.fit(train_images, train_labels, epochs=5, validation_data=(test_images, test_labels))
+epochs=5
 
-# 정확도 계산 verobse 0 = silent, 1 = progress bar, 2 = one line per epoch
-loss, acc = model.evaluate(test_images,  test_labels, verbose=2)
+history = model.fit(train_images, train_labels, epochs=epochs, validation_data=(test_images, test_labels))
+
+# 어큐러시 테스트 서버와 훈련 가중치 서버 측정
+acc = history.history['accuracy']
+val_acc = history.history['val_accuracy']
+
+loss = history.history['loss']
+val_loss = history.history['val_loss']
 
 print('total_accuracy : ', acc)
 print('loss function : ', loss)
+print('test_server-total_accuracy : ', val_acc)
+print('test_server-loss function : ', val_loss)
 
 # 어큐러시 상태 그래프화
-plt.plot(history.history['accuracy'], label='accuracy')
-plt.plot(history.history['val_accuracy'], label = 'val_accuracy')
-plt.plot(history.history['loss'], label = 'loss')
-plt.xlabel('Epoch')
-plt.ylabel('Accuracy')
-plt.legend(loc='lower right')
-plt.show()
+epochs_range = range(epochs)
 
-# 언제까지 계속 이러고만 공부하고만 있을 순 없다. 내일부터 필터어떻게 할지 생각하고 학습네트워크 모델 한번 생각(구현아님) 해보기. 최소정확도 95% 이상 나와야 함. overfitt(과적합) 되지 않도록 주의하고 모델한번 생각해보기 관련 데이터가 없음.
+plt.figure(figsize=(8, 8))
+plt.subplot(1, 2, 1)
+plt.plot(epochs_range, acc, label='Training Accuracy')
+plt.plot(epochs_range, val_acc, label='Validation Accuracy')
+plt.legend(loc='lower right')
+plt.title('Training and Validation Accuracy')
+
+plt.subplot(1, 2, 2)
+plt.plot(epochs_range, loss, label='Training Loss')
+plt.plot(epochs_range, val_loss, label='Validation Loss')
+plt.legend(loc='upper right')
+plt.title('Training and Validation Loss')
+plt.show()
