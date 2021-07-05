@@ -37,7 +37,7 @@ model.add(layers.Flatten())
 # 모델을 완성하기 위해 컨벌루션베이스 (모양 (4, 4, 64))의 마지막 출력 텐서를 하나 이상의 Dense 레이어로 공급하여 분류를 수행 64 Flatten
 model.add(layers.Dense(64, activation='relu'))
 
-# 10 개의 출력 클래스가 있으므로 10 개의 출력이있는 최종 Dense 레이어를 사용 10 classes
+# 10 개의 출력 클래스가 있으므로 10 개의 출력이있는 최종 Dense 레이어를 사용 10 classes 활성화 함수를 softmax로 setting
 model.add(layers.Dense(10, activation='softmax'))
 
 # 모델 계층 출력
@@ -45,20 +45,22 @@ model.summary()
 
 # 옵티마지어와, 손실함수(loss) 어큐러시를 설정
 model.compile(optimizer='adam',
-    loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+    loss='sparse_categorical_crossentropy',
     metrics=['accuracy'])
 
 # 모델 학습 epochs=분류 갯수
-history = model.fit(train_images, train_labels, epochs=10, validation_data=(test_images, test_labels))
+history = model.fit(train_images, train_labels, epochs=5, validation_data=(test_images, test_labels))
 
 # 정확도 계산 verobse 0 = silent, 1 = progress bar, 2 = one line per epoch
 loss, acc = model.evaluate(test_images,  test_labels, verbose=2)
 
 print('total_accuracy : ', acc)
+print('loss function : ', loss)
 
 # 어큐러시 상태 그래프화
 plt.plot(history.history['accuracy'], label='accuracy')
 plt.plot(history.history['val_accuracy'], label = 'val_accuracy')
+plt.plot(history.history['loss'], label = 'loss')
 plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.legend(loc='lower right')
