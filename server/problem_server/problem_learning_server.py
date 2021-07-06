@@ -80,10 +80,9 @@ model = Sequential([
     layers.Conv2D(64, 3, padding='same', activation='relu'), # 컨블루션 진행
     layers.MaxPooling2D(), # maxpooling 진행
     layers.Dropout(0.2), # 모르겟음
-    layers.Flatten(), # 패턴 추출 1D 백터형태로 반환 한것을 3D로 변경하는 작업
-    # Dense층을 추가하여 최종적으로 모델 생성 진행
-    layers.Dense(128, activation='relu'),
-    layers.Dense(num_classes)
+    layers.Flatten(), # 현재 출력은 3D 텐서이다. 먼저 3D 출력을 1D로 평평하게 (또는 펼친 다음) 위에 하나 이상의 Dense 레이어를 추가한다.
+    layers.Dense(128, activation='relu'), # 모델을 완성하기 위해 컨벌루션베이스 (모양 (4, 4, 64))의 마지막 출력 텐서를 하나 이상의 Dense 레이어로 공급하여 분류를 수행 64 Flatten
+    layers.Dense(num_classes) # 최종 모델 훈련 클래스 갯수 추가
 ])
 
 # 컴파일 진행 옵티마이저 adam, 설정 손실 함수 설정, 어큐러시 측정 설정
@@ -99,6 +98,12 @@ history = model.fit(
   validation_data=val_ds,
   epochs=epochs
 )
+
+# 최종 훈련 결과 출력
+loss, accuracy = model.evaluate(train_ds, verbose=2)
+
+print('training accuracy : ', accuracy)
+print('training loss : ', loss)
 
 # 최종 훈련 결과 그래프화
 acc = history.history['accuracy']
