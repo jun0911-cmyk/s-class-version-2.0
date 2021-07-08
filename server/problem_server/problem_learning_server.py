@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import tensorflow as tf
+import time
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.models import Sequential
@@ -112,6 +113,14 @@ print(
     "This image most likely belongs to {} with a {:.2f}% percent confidence."
     .format(class_names[np.argmax(score)], 100 * np.max(score))
 )
+
+# saving ML_model path
+t = time.time()
+
+export_path = 'C:/Users/jun09/OneDrive/Desktop/s-class_system_version/s-class_version-2/server/problem_server/model/{}'.format(int(t))
+model.save(export_path)
+
+print('model saving success path : ' + export_path)
 
 acc = history.history['accuracy']
 val_acc = history.history['val_accuracy']
