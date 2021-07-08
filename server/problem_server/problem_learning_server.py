@@ -5,7 +5,6 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.models import Sequential
-import pathlib
 
 # 너비, 높이, 소그룹 데이터 갯수
 batch_size = 32
@@ -37,7 +36,6 @@ val_ds = tf.keras.preprocessing.image_dataset_from_directory(
 # 저장한 데이터샛의 분할된 클래스를 list 형태로 받는다.
 print(train_ds)
 class_names = train_ds.class_names
-print(class_names)
 
 # tf.data 런타임이 실행 시에 동적으로 값을 조정한다.
 AUTOTUNE = tf.data.experimental.AUTOTUNE
@@ -47,20 +45,13 @@ print(AUTOTUNE)
 # 데이터 셋을 메모리 또는 로컬 저장소에 개시한다. 셔플은 반한된 요소들의 내부 버퍼를 사용한다. 첫 번째 에포크 동안 디스크에서로드 된 후 이미지를 메모리에 보관합니다. 이렇게하면 모델을 학습하는 동안 데이터 세트가 병목 현상이 발생하지 않습니다. 데이터 세트가 너무 커서 메모리에 맞지 않는 경우이 방법을 사용하여 고성능 온 디스크 캐시를 만들 수도 있습니다.
 train_ds = train_ds.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
 
-print(train_ds)
-
 val_ds = val_ds.cache().prefetch(buffer_size=AUTOTUNE) # 훈련하는 동안 데이터 전처리 및 모델 실행과 겹칩니다.
-
-print(val_ds)
 
 # RGB 채널 값이 [0, 255]범위 내에 있습니다. 이것은 신경망에 이상적이지 않습니다. 일반적으로 입력 값을 작게 만들어야합니다. 여기에서는 [0, 1]Rescaling 레이어를 사용하여 값이 범위 내에 있도록 표준화합니다 .
 normalization_layer = layers.experimental.preprocessing.Rescaling(1./255)
 
-print(normalization_layer)
-
 # 이 레이어를 사용하는 방법에는 두 가지가 있습니다. map을 호출하여 데이터 세트에 적용 할 수 있습니다. 또는 모델 정의 내에 계층을 포함하여 배포를 단순화 할 수 있습니다
 normalized_ds = train_ds.map(lambda x, y: (normalization_layer(x), y))
-print(normalized_ds)
 image_batch, labels_batch = next(iter(normalized_ds))
 first_image = image_batch[0]
 print(np.min(first_image), np.max(first_image))
