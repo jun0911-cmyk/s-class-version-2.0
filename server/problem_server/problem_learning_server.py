@@ -109,7 +109,7 @@ print('training accuracy : ', accuracy)
 print('training loss : ', loss)
 
 # 이미지 로드
-image_data = 'test1.jpg'
+image_data = 'test2.jpg'
 
 # path 변수에 경로지정
 path = 'C:/Users/jun09/OneDrive\desktop/s-class_system_version/s-class_version-2/server/problem_server/test_image/' + image_data
