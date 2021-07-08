@@ -108,9 +108,8 @@ loss, accuracy = model.evaluate(train_ds, verbose=2)
 print('training accuracy : ', accuracy)
 print('training loss : ', loss)
 
-# 원래 있던 이미지 예측 코드가 이상해서 내가 직접 수정함. 재훈련 하지 않고 이미지만 놓으면 훈련결과를 예측하게 만듬
 # 이미지 로드
-image_data = 'test6.jpg'
+image_data = 'test1.jpg'
 
 # path 변수에 경로지정
 path = 'C:/Users/jun09/OneDrive\desktop/s-class_system_version/s-class_version-2/server/problem_server/test_image/' + image_data
