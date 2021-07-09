@@ -7,11 +7,11 @@ img_width = 180
 
 class_names = ['drowing', 'paper', 'problem_text']
 
-cnn_model_path = 'C:/Users/jun09/OneDrive/Desktop/s-class_system_version/s-class_version-2/server/problem_server/model/1625816850'
+cnn_model_path = 'C:/Users/jun09/OneDrive/Desktop/s-class_system_version/s-class_version-2/server/problem_server/model/1625844412'
 
 load_cnn_model = tf.keras.models.load_model(cnn_model_path)
 
-image_data = 'test1.jpg'
+image_data = 'test7.jpg'
 
 path = 'C:/Users/jun09/OneDrive\desktop/s-class_system_version/s-class_version-2/server/problem_server/test_image/' + image_data
 
