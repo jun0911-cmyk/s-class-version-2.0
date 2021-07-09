@@ -33,6 +33,7 @@ val_ds = tf.keras.preprocessing.image_dataset_from_directory(
 
 print(train_ds)
 class_names = train_ds.class_names
+print(class_names)
 
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 
@@ -93,26 +94,6 @@ loss, accuracy = model.evaluate(train_ds, verbose=2)
 
 print('training accuracy : ', accuracy)
 print('training loss : ', loss)
-
-image_data = 'test6.jpg'
-
-path = 'C:/Users/jun09/OneDrive\desktop/s-class_system_version/s-class_version-2/server/problem_server/test_image/' + image_data
-
-img = keras.preprocessing.image.load_img(
-    path, target_size=(img_height, img_width)
-)
-
-img_array = keras.preprocessing.image.img_to_array(img)
-img_array = tf.expand_dims(img_array, 0)
-
-predictions = model.predict(img_array)
-
-score = tf.nn.softmax(predictions[0])
-
-print(
-    "This image most likely belongs to {} with a {:.2f}% percent confidence."
-    .format(class_names[np.argmax(score)], 100 * np.max(score))
-)
 
 # saving ML_model path
 t = time.time()
