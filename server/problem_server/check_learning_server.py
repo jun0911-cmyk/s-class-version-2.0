@@ -13,7 +13,7 @@ load_cnn_model = tf.keras.models.load_model(cnn_model_path)
 
 image_data = 'test7.jpg'
 
-path = 'C:/Users/jun09/OneDrive\desktop/s-class_system_version/s-class_version-2/server/problem_server/test_image/' + image_data
+path = 'C:/Users/jun09/OneDrive/desktop/s-class_system_version/s-class_version-2/server/problem_server/test_image/' + image_data
 
 img = keras.preprocessing.image.load_img(
     path, target_size=(img_height, img_width)
