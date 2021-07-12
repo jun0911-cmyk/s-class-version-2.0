@@ -6,14 +6,13 @@ import time
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.models import Sequential
+from tensorflow.keras.preprocessing import image_dataset_from_directory
 
 batch_size = 32
 img_height = 180
 img_width = 180
 
 data_dir = 'C:/Users/jun09/.keras/datasets/paper_checkes'
-
-print(data_dir)
 
 train_ds = tf.keras.preprocessing.image_dataset_from_directory(
     data_dir,
@@ -31,13 +30,9 @@ val_ds = tf.keras.preprocessing.image_dataset_from_directory(
     image_size=(img_height, img_width),
     batch_size=batch_size)
 
-print(train_ds)
 class_names = train_ds.class_names
-print(class_names)
 
 AUTOTUNE = tf.data.experimental.AUTOTUNE
-
-print(AUTOTUNE)
 
 train_ds = train_ds.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
 
@@ -82,7 +77,7 @@ model.compile(optimizer='adam',
 
 model.summary()
 
-epochs = 15
+epochs = 30
 
 history = model.fit(
   train_ds,
