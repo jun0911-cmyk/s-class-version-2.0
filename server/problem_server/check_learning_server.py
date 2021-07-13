@@ -13,27 +13,29 @@ problem_cnn_class_names = ['drawing', 'paper', 'problem']
 
 cnn_model_path = 'C:/Users/jun09/OneDrive/Desktop/s-class_system_version/s-class_version-2/server/problem_server/model/1626093961'
 
-load_cnn_model = tf.keras.models.load_model(cnn_model_path)
+def load_model_image(load_model, image_data):
+    load_cnn_model = tf.keras.models.load_model(load_model)
+    image_name = image_data
+    image_path = 'C:/Users/jun09/OneDrive/desktop/s-class_system_version/s-class_version-2/server/problem_server/test_image/' + image_name
+    open_image = Image.open(image_path)
+    return load_cnn_model, image_name, image_path, open_image
 
-image_data = 'test1.jpg'
+def load_image(model_path, image_name):
+    load_cnn_model, image_name, image_path, open_image =  load_model_image(model_path, image_name)
+    img = keras.preprocessing.image.load_img(image_path, target_size=(img_height, img_width))
+    img_array = keras.preprocessing.image.img_to_array(img)
+    img_array = tf.expand_dims(img_array, 0)
+    return img_array, open_image, load_cnn_model
 
-image_path = 'C:/Users/jun09/OneDrive/desktop/s-class_system_version/s-class_version-2/server/problem_server/test_image/' + image_data
+def predict_image(model_path, image_name, class_names):
+    img_array, open_image, load_cnn_model = load_image(model_path, image_name)
+    predictions = load_cnn_model.predict(img_array)
+    score = tf.nn.softmax(predictions[0])
+    accuracy = 100 * np.max(score)
+    score_class_name = class_names[np.argmax(score)]
+    return accuracy, score_class_name, open_image
 
-open_image = Image.open(image_path)
-
-img = keras.preprocessing.image.load_img(
-    image_path, target_size=(img_height, img_width)
-)
-
-img_array = keras.preprocessing.image.img_to_array(img)
-img_array = tf.expand_dims(img_array, 0)
-
-predictions = load_cnn_model.predict(img_array)
-
-score = tf.nn.softmax(predictions[0])
-
-accuracy = 100 * np.max(score)
-score_class_name = problem_cnn_class_names[np.argmax(score)]
+accuracy, score_class_name, open_image = predict_image(cnn_model_path, 'test7.jpg', problem_cnn_class_names)
 
 if score_class_name == 'problem' and accuracy > 70.0:
     problem_text = pytesseract.image_to_string(open_image, lang='kor')
