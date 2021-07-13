@@ -50,7 +50,7 @@ module.exports = function(app, passport) {
         .catch(err => done(err));
     }));
 
-    app.get('/auth/kakao', passport.authenticate('kakao', { scope: ['profile'] }));
+    app.get('/auth/kakao', passport.authenticate('kakao', { scope: ['profile_nickname', 'profile_image', 'account_email'] }));
 
     app.get('/auth/kakao/callback', passport.authenticate('kakao', { failureRedirect: '/user/login' }),
     function(req, res) {

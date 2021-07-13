@@ -10,8 +10,8 @@
         "callback": "http://localhost:8000/auth/facebook/callback"
     },
     "kakao": {
-        "clientID": "8e14b9852a217222b45134c183a62bef",
-        "clientSecret": "rQmMOVz8Mhbhb4b9AXb3DB7QhapMcQE2",
+        "clientID": "e0ff661777acc5c6eb7f3ca42155faaf",
+        "clientSecret": "sAnby8IWud6ruaYEW3ZdtrneNDQ979zu",
         "callback": "http://127.0.0.1:8000/auth/kakao/callback"
     },
     "naver": {
