@@ -13,6 +13,8 @@ problem_cnn_class_names = ['drawing', 'paper', 'problem']
 
 cnn_model_path = 'C:/Users/jun09/OneDrive/Desktop/s-class_system_version/s-class_version-2/server/problem_server/model/1626093961'
 
+image_name = 'test7.jpg'
+
 def load_model_image(load_model, image_data):
     load_cnn_model = tf.keras.models.load_model(load_model)
     image_name = image_data
@@ -35,7 +37,7 @@ def predict_image(model_path, image_name, class_names):
     score_class_name = class_names[np.argmax(score)]
     return accuracy, score_class_name, open_image
 
-accuracy, score_class_name, open_image = predict_image(cnn_model_path, 'test7.jpg', problem_cnn_class_names)
+accuracy, score_class_name, open_image = predict_image(cnn_model_path, image_name, problem_cnn_class_names)
 
 if score_class_name == 'problem' and accuracy > 70.0:
     problem_text = pytesseract.image_to_string(open_image, lang='kor')
