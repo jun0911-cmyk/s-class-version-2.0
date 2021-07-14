@@ -14,7 +14,7 @@ img_width = 180
 
 data_dir = 'C:/Users/jun09/.keras/datasets/paper_checkes'
 
-train_ds = tf.keras.preprocessing.image_dataset_from_directory(
+train_ds = image_dataset_from_directory(
     data_dir,
     validation_split=0.2,
     subset="training",
@@ -22,7 +22,7 @@ train_ds = tf.keras.preprocessing.image_dataset_from_directory(
     image_size=(img_height, img_width),
     batch_size=batch_size)
 
-val_ds = tf.keras.preprocessing.image_dataset_from_directory(
+val_ds = image_dataset_from_directory(
     data_dir,
     validation_split=0.2,
     subset="validation",
