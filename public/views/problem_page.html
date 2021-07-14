@@ -51,8 +51,48 @@
     <div class="contention">
         <div class="main_content" id="main_content">
         </div>
-        <script src="./problemBook_page.js"></script>
     </div>
+    <div class="class_data" id="class_data">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="cols">문제번호</th>
+                    <th scope="cols">문제이름</th>
+                    <th scope="cols">문제 난이도</th>
+                    <th scope="cols">해당 과목</th>
+                    <th scope="cols">카테고리분류</th>
+                    <th scope="cols">학급 분류</th>
+                    <th scope="cols">자세히 보기</th>
+                </tr>
+            </thead>
+            <tbody id="col">
+                <tr v-for="(index, problem) in problem_data">
+                    <td>
+                        <span>{{ index.problem_id }}</span>
+                    </td>
+                    <td>
+                        <span>{{ index.problem_name }}</span>
+                    </td>
+                    <td>
+                        <span>{{ index.problem_lavel }}</span>
+                    </td>
+                    <td>
+                        <span>{{ index.problem_subject }}</span>
+                    </td>
+                    <td>
+                        <span>{{ index.problem_category }}</span>
+                    </td>
+                    <td>
+                        <span>{{ index.school_lavel }}</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" id="details_btn">자세히 보기</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="./problemBook_page.js"></script>
     <footer class="footer bg-dark">
         <h6  style="color: white;">S-클래스 - 스쿨줌</h6>
         <small style="color: lightgray;">Copyright © S-클래스 2021</small>

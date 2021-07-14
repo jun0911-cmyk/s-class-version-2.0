@@ -6,7 +6,9 @@ $(function() {
         },   
         datatype: 'json',
         success: function(result) {
+            const problem = result.problem
             const user = result.user;
+            const problem_count = result.rows_number
 
             Vue.component('account-component', {
                 template: `
@@ -28,6 +30,18 @@ $(function() {
                 template: `
                     <i class="fas fa-bell" style="font-size: 27px; margin-left: 30px;"></i>
                 `
+            });
+
+            new Vue({
+                el: '#col',
+                data() {
+                    return {
+                        problem_data: []
+                    }
+                },
+                created() {
+                    this.problem_data = problem_count.rows
+                }
             });
 
             new Vue({

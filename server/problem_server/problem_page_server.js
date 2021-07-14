@@ -19,9 +19,18 @@ module.exports = function(app) {
 
     app.post('/problem', (req, res) => {
         if(req.isAuthenticated()) {
-            res.json({
-                user: req.user
-            });
+            models.problem.findAll().then(function(problem_data) {
+                models.problem.findAndCountAll()
+                .then(function(count_data) {
+                    res.json({ 
+                        problem: problem_data, 
+                        user: req.user,
+                        rows_number: count_data 
+                    });
+                })
+                .catch(err => console.log(err));
+            })
+            .catch(err => console.log(err));
         }
     });
 }
