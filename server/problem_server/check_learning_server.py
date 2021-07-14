@@ -13,7 +13,7 @@ problem_cnn_class_names = ['drawing', 'paper', 'problem']
 
 cnn_model_path = 'C:/Users/jun09/OneDrive/Desktop/s-class_system_version/s-class_version-2/server/problem_server/model/1626093961'
 
-image_name = 'test7.jpg'
+image_name = 'test9.jpg'
 
 def load_model_image(load_model, image_data):
     load_cnn_model = tf.keras.models.load_model(load_model)
@@ -40,10 +40,12 @@ def predict_image(model_path, image_name, class_names):
 accuracy, score_class_name, open_image = predict_image(cnn_model_path, image_name, problem_cnn_class_names)
 
 if score_class_name == 'problem' and accuracy > 70.0:
-    problem_text = pytesseract.image_to_string(open_image, lang='kor')
+    print('Extracting text...')
+    problem_text = pytesseract.image_to_string(open_image, lang='kor+eng')
+    print('successed!')
     print(problem_text)
 else:
     print(
-    "해당 이미지는 {}일 확률이 {:.2f}%로 측정되었습니다."
-    .format(score_class_name, accuracy)
-)
+        "Failed to extract text, less than 70% accuracy or not problematic. Measured Results : {}, result accuracy : {:.2f}%"
+        .format(score_class_name, accuracy)
+    )
