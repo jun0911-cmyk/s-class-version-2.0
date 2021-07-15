@@ -9,7 +9,7 @@ pytesseract.pytesseract.tesseract_cmd = r'C:/Program Files/Tesseract-OCR/tessera
 img_height = 180
 img_width = 180
 
-image_name = 'test7.jpg'
+image_name = 'test6.jpg'
 
 problem_cnn_class_names = ['drawing', 'paper', 'problem']
 
@@ -41,7 +41,7 @@ accuracy, score_class_name, open_image = predict_image(cnn_model_path, problem_c
 
 if score_class_name == 'problem' and accuracy > 70.0:
     print('Extracting text...')
-    problem_text = pytesseract.image_to_string(open_image, lang='kor+eng')
+    problem_text = pytesseract.image_to_string(open_image, lang='kor+eng+equ')
     print(problem_text)
 else:
     print(
