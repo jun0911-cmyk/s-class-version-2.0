@@ -42,7 +42,6 @@ accuracy, score_class_name, open_image = predict_image(cnn_model_path, problem_c
 if score_class_name == 'problem' and accuracy > 70.0:
     print('Extracting text...')
     problem_text = pytesseract.image_to_string(open_image, lang='kor+eng')
-    print('successed!')
     print(problem_text)
 else:
     print(
