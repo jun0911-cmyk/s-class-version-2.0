@@ -11,6 +11,7 @@ $(function() {
             var data = result.data;
             var invite = result.invite;
             var status = result.status;
+            var delect_teacher_email;
             var inviteList = [];
 
             room_socket.emit('inviteList', invite, data);
@@ -94,6 +95,7 @@ $(function() {
                 var room_name = td.eq(0).text(); 
                 for(var i = 0; i < inviteList.length; i++) {
                     if (inviteList[i].email == room_name) {
+                        delect_teacher_email = inviteList[i].email
                         Swal.fire({
                             title: `${inviteList[i].email} 강사를 취소하시겠습니까?`,
                             text: "모든 강의목록과 온라인 강의목록에서 삭제됩니다.",
@@ -105,9 +107,7 @@ $(function() {
                             cancelButtonText: '취소'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                for (var j = 0; j < inviteList.length; j++) {
-                                    room_socket.emit('delect_teacher', inviteList[j].email, data);
-                                }
+                                room_socket.emit('delect_teacher', delect_teacher_email, data);
                             }
                         });
                     }
