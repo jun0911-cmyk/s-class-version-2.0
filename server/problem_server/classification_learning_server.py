@@ -18,8 +18,6 @@ train_dataset, test_dataset = dataset['train'], dataset['test']
 
 train_dataset.element_spec
 
-class_name = ['good review', 'bad review']
-
 for example, label in train_dataset.take(1):
     print('text: ', example.numpy())
     print('label: ', label.numpy())
