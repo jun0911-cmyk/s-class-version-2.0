@@ -75,9 +75,5 @@ model.save(export_path)
 
 print('model saving success path : ' + export_path)
 
-plt.figure(figsize=(16, 6))
-plt.subplot(1, 2, 1)
 plot_graphs(history, 'accuracy')
-plt.subplot(1, 2, 2)
 plot_graphs(history, 'loss')
-plt.show()
