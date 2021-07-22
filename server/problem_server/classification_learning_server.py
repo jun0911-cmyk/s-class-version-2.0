@@ -72,5 +72,9 @@ model.save(export_path)
 
 print('model saving success path : ' + export_path)
 
+accuracy, loss = model.evaluate(train_dataset, verbose=2)
+
+print('rnn network learning success! accueacy : {}, loss : {}'.format(accuracy, loss))
+
 plot_graphs(history, 'accuracy')
 plot_graphs(history, 'loss')
