@@ -1,6 +1,7 @@
 import numpy as np
 import tensorflow_datasets as tfds
 import tensorflow as tf
+import time
 import matplotlib.pyplot as plt
 
 tfds.disable_progress_bar()
@@ -66,7 +67,9 @@ history = model.fit(train_dataset, epochs=10,
     validation_data=test_dataset,
     validation_steps=30)
 
-export_path = 'C:/Users/jun09/OneDrive/Desktop/s-class_system_version/s-class_version-2/server/problem_server/model/{}'.format(str('rnn_learning_model'))
+t = time.time()
+
+export_path = 'C:/Users/jun09/OneDrive/Desktop/s-class_system_version/s-class_version-2/server/problem_server/model/rnn_model/{}'.format(int(t))
 
 model.save(export_path)
 

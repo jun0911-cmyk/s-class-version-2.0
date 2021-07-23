@@ -4,7 +4,7 @@ import numpy as np
 sample_review = ('The movie was cool. The animation and the graphics '
 'were out of this world. I would recommend this movie.')
 
-rnn_model_path = 'C:/Users/jun09/OneDrive/Desktop/s-class_system_version/s-class_version-2/server/problem_server/model/rnn_test'
+rnn_model_path = 'C:/Users/jun09/OneDrive/Desktop/s-class_system_version/s-class_version-2/server/problem_server/model/rnn_model/rnn_test'
 
 def load_model(load_model):
     load_rnn_model = tf.keras.models.load_model(load_model)

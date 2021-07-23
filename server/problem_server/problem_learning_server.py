@@ -90,7 +90,9 @@ loss, accuracy = model.evaluate(train_ds, verbose=2)
 print('training accuracy : ', accuracy)
 print('training loss : ', loss)
 
-export_path = 'C:/Users/jun09/OneDrive/Desktop/s-class_system_version/s-class_version-2/server/problem_server/model/{}'.format(str('cnn_learning_model'))
+t = time.time()
+
+export_path = 'C:/Users/jun09/OneDrive/Desktop/s-class_system_version/s-class_version-2/server/problem_server/model/cnn_model/{}'.format(int(t))
 model.save(export_path)
 
 print('model saving success path : ' + export_path)

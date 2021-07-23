@@ -13,7 +13,7 @@ image_name = 'test7.jpg'
 
 problem_cnn_class_names = ['drawing', 'paper', 'problem']
 
-cnn_model_path = 'C:/Users/jun09/OneDrive/Desktop/s-class_system_version/s-class_version-2/server/problem_server/model/cnn_learning_model'
+cnn_model_path = 'C:/Users/jun09/OneDrive/Desktop/s-class_system_version/s-class_version-2/server/problem_server/model/cnn_model/1627062415'
 
 image_path = 'C:/Users/jun09/OneDrive/desktop/s-class_system_version/s-class_version-2/server/problem_server/test_image/' + image_name
 
