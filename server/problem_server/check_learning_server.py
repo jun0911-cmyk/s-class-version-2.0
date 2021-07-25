@@ -2,9 +2,7 @@ import tensorflow as tf
 import numpy as np
 import pytesseract
 import cv2
-from pytesseract import Output
 from tensorflow import keras
-from PIL import Image 
 
 pytesseract.pytesseract.tesseract_cmd = r'C:/Program Files/Tesseract-OCR/tesseract.exe'
 
