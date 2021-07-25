@@ -9,7 +9,7 @@ pytesseract.pytesseract.tesseract_cmd = r'C:/Program Files/Tesseract-OCR/tessera
 img_height = 180
 img_width = 180
 
-image_name = 'test6.jpg'
+image_name = 'test13.jpg'
 
 problem_cnn_class_names = ['drawing', 'paper', 'problem']
 
