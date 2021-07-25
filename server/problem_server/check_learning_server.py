@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 import pytesseract
 import cv2
+from pytesseract import Output
 from tensorflow import keras
 from PIL import Image 
 
@@ -10,7 +11,7 @@ pytesseract.pytesseract.tesseract_cmd = r'C:/Program Files/Tesseract-OCR/tessera
 img_height = 180
 img_width = 180
 
-image_name = 'test1.jpg'
+image_name = 'test6.jpg'
 
 problem_cnn_class_names = ['drawing', 'paper', 'problem']
 
@@ -38,10 +39,9 @@ def predict_image(model_path, class_names):
     return accuracy, score_class_name
 
 def ocr_image(image_name):
-    ocr_iamge_name = cv2.imread(image_name)
-    gray_image = cv2.cvtColor(ocr_iamge_name, cv2.COLOR_BGR2GRAY)
-    ocr_predict_image = cv2.threshold(gray_image, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-    problem_text = pytesseract.image_to_string(ocr_predict_image, lang='kor+eng')
+    ocr_predict_image = cv2.imread(image_name)
+    ocr_config = '-l kor+eng+equ --oem 3 --psm 11'
+    problem_text = pytesseract.image_to_string(ocr_predict_image, config=ocr_config)
     return problem_text
 
 accuracy, score_class_name = predict_image(cnn_model_path, problem_cnn_class_names)
