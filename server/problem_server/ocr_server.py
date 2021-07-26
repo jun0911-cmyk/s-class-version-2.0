@@ -56,7 +56,7 @@ def create_json(ocr_data):
             {
                 "response_id": t,
                 "response_text": ocr_data,
-                "response_ckassification": "ocr",
+                "response_classification": "ocr",
                 "image_name": image_name,
                 "predict_model_name": model_name
             }
