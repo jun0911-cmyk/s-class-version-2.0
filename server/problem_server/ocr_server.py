@@ -1,7 +1,10 @@
+from re import T
 import tensorflow as tf
 import numpy as np
 import pytesseract
 import cv2
+import json
+import time
 from tensorflow import keras
 
 pytesseract.pytesseract.tesseract_cmd = r'C:/Program Files/Tesseract-OCR/tesseract.exe'
@@ -9,11 +12,12 @@ pytesseract.pytesseract.tesseract_cmd = r'C:/Program Files/Tesseract-OCR/tessera
 img_height = 180
 img_width = 180
 
-image_name = 'test10jpg'
+image_name = 'test1.jpg'
+model_name = '1627062415'
 
 class_names = ['drawing', 'paper', 'problem']
 
-model_path = 'C:/Users/jun09/OneDrive/Desktop/s-class_system_version/s-class_version-2/server/problem_server/model/cnn_model/1627062415'
+model_path = 'C:/Users/jun09/OneDrive/Desktop/s-class_system_version/s-class_version-2/server/problem_server/model/cnn_model/' + model_name
 
 image_path = 'C:/Users/jun09/OneDrive/desktop/s-class_system_version/s-class_version-2/server/problem_server/test_image/' + image_name
 
@@ -43,15 +47,42 @@ def accuracy_calculation():
 def ocr_image(image_name):
     ocr_predict_image = cv2.imread(image_name)
     ocr_config = '-l kor+eng+equ --oem 3 --psm 11'
-    problem_text = pytesseract.image_to_string(ocr_predict_image, config=ocr_config)
-    return problem_text
+    return pytesseract.image_to_string(ocr_predict_image, config=ocr_config)
+
+def create_json(ocr_data):
+    t = time.time()
+    json_data = {
+        "response": [
+            {
+                "response_id": t,
+                "response_text": ocr_data,
+                "response_ckassification": "ocr",
+                "image_name": image_name,
+                "predict_model_name": model_name
+            }
+        ]
+    }
+    return json_data
+
+def response_json(response_data):
+    message = ''
+    try:
+        with open("sendData.json", "w", encoding="UTF-8-sig") as json_file:
+            json_file.write(json.dumps(response_data, ensure_ascii=False))
+        message = "successed! {}".format(response_data)
+    except:
+        message = "Response Error"
+    return message
+    
 
 accuracy, score_class_name = accuracy_calculation()
 
 if score_class_name == 'problem' and accuracy > 70.0:
     print('Extracting text...')
     ocr_problem_text = ocr_image(image_path)
-    print(ocr_problem_text)
+    json_data = create_json(ocr_problem_text)
+    response_msg = response_json(json_data)
+    print(response_msg)
 elif score_class_name == 'problem' and accuracy < 70.0:
     print(
         "The image was not accurately recognized. Please select another image or re-recognize it. Current measured accuracy: {:.2f}".format(accuracy)

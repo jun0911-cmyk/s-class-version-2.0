@@ -1,5 +1,6 @@
 import tensorflow as tf
-import numpy as np 
+import numpy as np
+import json
 
 sample_review = ('The movie was cool. The animation and the graphics '
 'were out of this world. I would recommend this movie.')
