@@ -100,8 +100,8 @@ function media_stream() {
     };
     navigator.mediaDevices.getUserMedia(constrains).then(gotStream).then(updateDevicesList).catch(err => {
         Swal.fire(
-            '강의실에 연결할 수 없습니다.',
-            `오디오 또는 비디오에 연결할수 없습니다. 다른 장치를 선택해주세요. ${err}`,
+            '미리보기에 연결할 수 없습니다.',
+            `오디오 또는 비디오에 연결할수 없습니다. 오디오 비디오를 허용여부를 거부했는지 확인해주세요.`,
             'error'
         )
     });
