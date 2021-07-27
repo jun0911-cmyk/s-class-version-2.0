@@ -54,7 +54,7 @@ def create_json(ocr_data):
     json_data = {
         "response": [
             {
-                "response_id": t,
+                "response_id": int(t),
                 "response_text": ocr_data,
                 "response_classification": "ocr",
                 "image_name": image_name,

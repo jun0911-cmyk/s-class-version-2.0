@@ -1,7 +1,6 @@
 'use strict';
 
-const get_audioElement = document.querySelector('audio#localAudio');
-const get_videoElement = document.querySelector('video#localVideo');
+const videoElement = document.querySelector('video#localVideo');
 const videoSelect = document.querySelector('select#availableCameras');
 const audioOutputSelect = document.querySelector('select#availableOutPutAudios');
 const audioInputSelect = document.querySelector('select#availableAudios');
@@ -53,34 +52,33 @@ function audioOutPutChange() {
     get_audioElement.setSinkId(audioDestination)
 }
 
-function gotAudio(stream) {
+function gotStream(stream) {
     window.stream = stream;
-    get_audioElement.srcObject = stream;
+    videoElement.srcObject = stream;
     return navigator.mediaDevices.enumerateDevices();
-}
-  
-function audio_start() {
-    const audioSource = audioInputSelect.value;
-    const constraints = {
-        audio: {deviceId: audioSource ? {exact: audioSource} : undefined}
-    };
-    navigator.mediaDevices.getUserMedia(constraints).then(gotAudio).then(updateDevicesList).catch(handleError);
 }
 
-function gotVideo(stream) {
-    window.stream = stream;
-    get_videoElement.srcObject = stream;
-    return navigator.mediaDevices.enumerateDevices();
-}
-  
-function video_start() {
+function media_stream() {
+    if (window.stream) {
+        window.stream.getTracks().forEach(track => {
+            track.stop();
+        });
+    }
+    const audioSource = audioInputSelect.value;
     const videoSource = videoSelect.value;
-    const constraints = {
+    const constrains = {
+        audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
         video: {deviceId: videoSource ? {exact: videoSource} : undefined}
     };
-    navigator.mediaDevices.getUserMedia(constraints).then(gotVideo).then(updateDevicesList).catch(handleError);
+    navigator.mediaDevices.getUserMedia(constrains).then(gotStream).then(updateDevicesList).catch(err => {
+        Swal.fire(
+            '강의실에 연결할 수 없습니다.',
+            `오디오 또는 비디오에 연결할수 없습니다. 다른 장치를 선택해주세요. ${err.name}`,
+            'error'
+        )
+    });
 }
 
-//audioInputSelect.onchange = audio_start;
-//audioOutputSelect.onchange = audioOutPutChange;
-//videoSelect.onchange = video_start;
+audioInputSelect.onchange = media_stream;
+audioOutputSelect.onchange = audioOutPutChange;
+videoSelect.onchange = media_stream;

@@ -6,8 +6,8 @@ import {delete_call, host_delete_class} from "../leave_class/delete_class.js";
 import {mute_audio, enabled_video} from "../device_setting/devices_mute.js";
 import {displayMedia, displayConnectProtocol} from "../webrtc_protocol/display_media.js";
 import {WaitingRoom} from "../wait_room/host_waiting_room.js";
-import {select_devicesList} from "../device_setting/select_devices.js";
-import {audio_devices_setting} from "../device_setting/select_devices_setting.js";
+//import {select_devicesList} from "../device_setting/select_devices.js";
+//import {audio_devices_setting} from "../device_setting/select_devices_setting.js";
 import {attendanceCheck} from "../attendance/attendance_check.js";
 import {problem_search} from "../problem_books/select_problem.js";
 //import {SDPOfferProtoCol, SDPStatusProtoCol} from "../webrtc_protocol/p2p_protocol.js";
@@ -94,12 +94,6 @@ $(function() {
                     'error'
                 )
             });
-
-            // mute audio or video
-            audio_devices_setting(document.getElementById('audio_settings'));
-
-            // device.kind label parseing
-            select_devicesList(navigator, selectors, videoSelect, audioInputSelect, audioOutputSelect);
             
             my_screen_video.disabled = true;
             
