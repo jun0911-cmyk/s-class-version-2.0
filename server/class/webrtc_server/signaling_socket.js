@@ -293,15 +293,18 @@ module.exports = function(app, io) {
                 }
             }).then(function(room) {
                 socket.emit('created', roomId, user.email);
-                models.class.update({
-                    class_status: 1
-                }, {
-                    where: {
-                        class_id: roomId
-                    }
-                });
             })
             .catch(err => console.log(err));
+        });
+
+        socket.on('start_class', function(roomId, user) {
+            models.class.update({
+                class_status: 1
+            }, {
+                where: {
+                    class_id: roomId
+                }
+            });
         });
 
         // JOIN ROOM JOIN 권한 확인

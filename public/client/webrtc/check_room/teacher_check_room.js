@@ -55,7 +55,7 @@ $(function() {
             socket.on('created', function(roomId, host) {
                 check.message = `${roomId}번 강의실에 참가중... 현재 호스트 : ${host}`;
                 setTimeout(function() {
-                    window.open(`/class/live/room/classroom/${roomId}&testing&testing`);
+                    window.open(`/class/live/room/classroom/setting/${roomId}&testing&testing`);
                     check.message = `강의실 생성 완료.`;
                 }, 1500);
                 setTimeout(function() {

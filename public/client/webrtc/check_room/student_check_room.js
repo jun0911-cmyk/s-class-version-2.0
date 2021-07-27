@@ -106,7 +106,7 @@ $(function() {
             socket.on('joined', function(roomId, client) {
                 check.message = `${roomId}번 강의실에 참가중... 현재 접속인원 : ${client}명`;
                 setTimeout(function() {
-                    window.open(`/class/live/room/classroom/${roomId}&testing&testing`);
+                    window.open(`/class/live/room/classroom/setting/${roomId}&testing&testing`);
                     check.message = `강의실 참가 완료.`;
                 }, 1500);
                 setTimeout(function() {

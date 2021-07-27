@@ -110,7 +110,6 @@ videoSelect.onchange = media_stream;
 
 media_stream();
 
-document.getElementById('btn').addEventListener('click', async function(e) {
-    await socket.emit('start_class', roomId);
+document.getElementById('btn').addEventListener('click',function(e) {
     location.href = `/class/live/room/classroom/${roomId}&testing&testing/`;
 });
