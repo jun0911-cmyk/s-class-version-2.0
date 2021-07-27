@@ -44,6 +44,10 @@ $(function() {
                 enabled_video(localVideo, localStream);
             }
 
+            if (audioOutPutSinkid != undefined) {
+                localVideo.setSinkId(audioOutPutSinkid);
+            }
+
             navigator.mediaDevices.getUserMedia({
                 audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
                 video: {deviceId: videoSource ? {exact: videoSource} : undefined}
@@ -61,6 +65,10 @@ $(function() {
 
                 var track = stream.getVideoTracks()[0];
                 rtcPeerConnection.addTrack(track, stream);
+
+                localStorage.removeItem('videoSource');
+                localStorage.removeItem('audioSource');
+                localStorage.removeItem('audioOutPutSinkid');
             });
             
             socket.emit('joined_class', roomId, user);

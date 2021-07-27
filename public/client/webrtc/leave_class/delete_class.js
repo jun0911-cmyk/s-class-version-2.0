@@ -10,9 +10,6 @@ export function delete_call(socket, roomId) {
             confirmButtonText: '종료',
             cancelButtonText: '취소'
         }).then((result) => {
-            localStorage.removeItem('videoSource');
-            localStorage.removeItem('audioSource');
-            localStorage.removeItem('audioOutPutSinkid');
             if (result.isConfirmed) {
                 Swal.fire(
                     '승인코드 : 205',

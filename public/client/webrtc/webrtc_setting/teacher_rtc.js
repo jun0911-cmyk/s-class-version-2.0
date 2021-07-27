@@ -76,6 +76,10 @@ $(function() {
                 problem_search(user, roomId);
             }
 
+            if (audioOutPutSinkid != undefined) {
+                localVideo.setSinkId(audioOutPutSinkid);
+            }
+
             navigator.mediaDevices.getUserMedia({
                 audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
                 video: {deviceId: videoSource ? {exact: videoSource} : undefined}
@@ -90,6 +94,10 @@ $(function() {
 
                 localVideo.srcObject = stream;
                 localStream = stream;
+
+                localStorage.removeItem('videoSource');
+                localStorage.removeItem('audioSource');
+                localStorage.removeItem('audioOutPutSinkid');
             }).catch(err => {
                 Swal.fire(
                     '강의실에 연결할 수 없습니다.',
