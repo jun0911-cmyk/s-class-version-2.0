@@ -125,3 +125,15 @@ label {
     font-family: 'Y_Spotlight';
     font-size: 20px;
 }
+
+.loading_btn {
+    position: absolute; 
+    margin-left: 75%;
+    border: none;
+    margin-top: -40.3%;
+}
+
+.loading_text {
+    font-weight: 900;
+    font-size: 30px;
+}

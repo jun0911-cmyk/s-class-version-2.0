@@ -31,6 +31,9 @@ $(function() {
     });
 });
 
+$('#loading').hide();
+$('#btn').show();
+
 audioOutputSelect.disabled = !('sinkId' in HTMLMediaElement.prototype);
 
 function updateDevicesList() {
@@ -111,5 +114,11 @@ videoSelect.onchange = media_stream;
 media_stream();
 
 document.getElementById('btn').addEventListener('click',function(e) {
+    $('#loading').show();
+    $('#btn').hide();
+    console.log(videoSource, audioSource, audioDestination);
+    localStorage.setItem('videoSource', videoSource);
+    localStorage.setItem('audioSource', audioSource);
+    localStorage.setItem('audioOutPutSinkid', audioDestination);
     location.href = `/class/live/room/classroom/${roomId}&testing&testing/`;
 });

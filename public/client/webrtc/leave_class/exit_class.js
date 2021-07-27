@@ -16,6 +16,9 @@ export function leave_call(socket, roomId, user) {
             cancelButtonText: '취소'
         }).then((result) => {
             if (result.isConfirmed) {
+                localStorage.removeItem('videoSource');
+                localStorage.removeItem('audioSource');
+                localStorage.removeItem('audioOutPutSinkid');
                 Swal.fire(
                     '승인코드 : 205',
                     '강의실을 나가셨습니다.',

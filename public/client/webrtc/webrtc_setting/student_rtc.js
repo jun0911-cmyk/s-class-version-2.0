@@ -28,6 +28,9 @@ $(function() {
             var user = result.user;
             var roomId = result.roomid;
             var localStream;
+            var videoSource = localStorage.getItem('videoSource');
+            var audioSource = localStorage.getItem('audioSource');
+            var audioOutPutSinkid = localStorage.getItem('audioOutPutSinkid');
 
             // MediaStream connect
             muteAudio.addEventListener('click', audios);
@@ -42,8 +45,8 @@ $(function() {
             }
 
             navigator.mediaDevices.getUserMedia({
-                audio: true, 
-                video: true
+                audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
+                video: {deviceId: videoSource ? {exact: videoSource} : undefined}
             }).then(stream => {
                 stream.getVideoTracks().forEach(function(track) {
                     track.enabled = false;
